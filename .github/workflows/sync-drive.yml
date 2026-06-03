@@ -26,11 +26,11 @@ name: Sync Google Drive Gallery
 
 on:
   schedule:
-    - cron: '0 14 * * *' # Runs daily at midnight Sydney time (2 PM UTC)
+    - cron: '0 14 * * *' # Runs daily
   workflow_dispatch: # Allows you to run it manually via the button
 
 permissions:
-  contents: write # Grants the runner permission to commit files back to your repo
+  contents: write
 
 jobs:
   sync:
@@ -53,6 +53,5 @@ jobs:
         env:
           GA_SERVICE_ACCOUNT_KEY: ${{ secrets.GA_SERVICE_ACCOUNT_KEY }}
           DRIVE_FOLDER_ID: '1PoOctAq1FhN186Q8sGyAe4IGspcekmmY'
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
         run: |
           python .github/workflows/sync_drive.py
