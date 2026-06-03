@@ -197,7 +197,7 @@
       </div>
 
       <!-- JS renders cards here from GALLERY_IMAGES in gallery-data.js -->
-      <div id="gallery-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12">
+      <div id="gallery-grid-container" class="columns-1 md:columns-2 lg:columns-3 gap-8 md:gap-10 lg:gap-12">
       </div>
     </section>
 
@@ -281,7 +281,7 @@
   </div>
 
   <!-- gallery-data.js  → array of all photos (auto-updated by GitHub Action) -->
-  <script src="./assets/gallery-data.js"></script>
+  <script src="./assets/gallery-data.js?v=2"></script>
   <!-- Shared JS (nav, lightbox, smooth scroll) -->
   <script src="./assets/js/main.js"></script>
 
@@ -296,12 +296,10 @@
         'aspect-[3/4]', 'aspect-square', 'aspect-[4/5]',
         'aspect-[16/10]', 'aspect-[3/4]', 'aspect-[4/5]'
       ];
-      // Alternating vertical offsets on large screens
-      const OFFSETS = ['', 'lg:mt-12', '', '', 'lg:-mt-12', ''];
 
       GALLERY_IMAGES.forEach(function (item, i) {
         const wrapper = document.createElement('div');
-        wrapper.className = `group flex flex-col cursor-pointer ${OFFSETS[i % OFFSETS.length]}`;
+        wrapper.className = 'group flex flex-col cursor-pointer break-inside-avoid mb-8 md:mb-10 lg:mb-12';
         wrapper.setAttribute('onclick', 'openLightbox(this)');
 
         const frame = document.createElement('div');
