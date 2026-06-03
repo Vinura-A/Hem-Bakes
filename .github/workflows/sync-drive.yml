@@ -4,7 +4,7 @@
 # =============================================================================
 #
 #  WHAT THIS DOES:
-#    1. Runs automatically every day at midnight Sydney time (2pm UTC)
+#    1. Runs automatically once a week on Sunday (midnight Sydney time / 2pm UTC)
 #    2. Also runs whenever you push to the main branch
 #    3. Can also be triggered manually at any time (see GitHub → Actions tab)
 #
@@ -26,7 +26,7 @@ name: Sync Google Drive Gallery
 
 on:
   schedule:
-    - cron: '0 14 * * *' # Runs daily
+    - cron: '0 14 * * 0' # Runs once a week on Sunday
   workflow_dispatch: # Allows you to run it manually via the button
 
 permissions:
