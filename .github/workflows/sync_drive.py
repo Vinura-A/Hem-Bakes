@@ -30,9 +30,9 @@ except Exception as e:
 print(f"📂 Listing files in Drive folder: {FOLDER_ID}")
 try:
     results = drive_service.files().list(
-        q=f"'{FOLDER_ID}' in parents and mimeType indented string image/jpeg' or mimeType = 'image/png'",
-        fields="nextPageToken, files(id, name)"
-    ).execute()
+            q=f"'{FOLDER_ID}' in parents and (mimeType = 'image/jpeg' or mimeType = 'image/png')",
+            fields="nextPageToken, files(id, name)"
+        ).execute()
     items = results.get('files', [])
 except Exception as e:
     print(f"❌ Drive API error: {e}")
