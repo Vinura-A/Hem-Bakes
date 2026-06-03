@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ============================================================
+       SEO: Page title and description – update these to match your brand
+       ============================================================ -->
+  <title>Hem Bakes – Bespoke Artisanal Cakes, Canberra</title>
+  <meta name="description" content="Hem Bakes creates bespoke, handcrafted celebration cakes in Canberra, ACT. From intimate birthday cakes to grand wedding tiers – every creation is made with love.">
+
+  <!-- ============================================================
+       GOOGLE FONTS
+       Playfair Display = elegant serif used for all headings
+       Montserrat       = clean sans-serif used for body and nav text
+       Material Symbols = icon library (used for menu, arrows, etc.)
+       ============================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- ============================================================
+       TAILWIND CSS (loaded from CDN – no build step needed)
+       ============================================================ -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- ============================================================
+       TAILWIND DESIGN TOKENS
+       These colours, font sizes, and spacing values come directly
+       from the Hem Bakes "Artisanal Editorial" design system.
+       DO NOT change these unless you are redesigning the brand.
+       ============================================================ -->
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            /* Brand palette */
+            "primary":                  "#954053", /* Antique Rose – buttons & accents */
+            "secondary":                "#546438", /* Boutique Olive – headings & nav  */
+            "antique-rose":             "#D47285",
+            "sweet-blossom":            "#F7A3B7",
+            "warm-espresso":            "#3C3530",
+            /* Surface layers (light to dark tonal steps) */
+            "surface":                  "#fdf9f1",
+            "surface-bright":           "#fdf9f1",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low":    "#f7f3eb",
+            "surface-container":        "#f1ede6",
+            "surface-container-high":   "#ece8e0",
+            "surface-container-highest":"#e6e2da",
+            "surface-dim":              "#dddad2",
+            "surface-variant":          "#e6e2da",
+            /* Text on surfaces */
+            "on-surface":               "#1c1c17",
+            "on-surface-variant":       "#544245",
+            "on-primary":               "#ffffff",
+            "on-secondary":             "#ffffff",
+            /* Borders & misc */
+            "outline":                  "#877274",
+            "outline-variant":          "#d9c1c3",
+            /* Semantic extras */
+            "tertiary":                 "#8a4759",
+            "inverse-surface":          "#31302b",
+          },
+          borderRadius: {
+            DEFAULT: "1rem",
+            lg:      "2rem",
+            xl:      "3rem",
+            full:    "9999px",
+          },
+          spacing: {
+            "gutter":                    "32px",
+            "section-padding-desktop":   "100px",
+            "section-padding-mobile":    "60px",
+            "container-max":             "1280px",
+          },
+          fontFamily: {
+            "headline-xl":        ["Playfair Display", "serif"],
+            "headline-xl-mobile": ["Playfair Display", "serif"],
+            "headline-lg":        ["Playfair Display", "serif"],
+            "headline-md":        ["Playfair Display", "serif"],
+            "tagline-italic":     ["Playfair Display", "serif"],
+            "body-lg":            ["Montserrat", "sans-serif"],
+            "body-md":            ["Montserrat", "sans-serif"],
+            "nav-link":           ["Montserrat", "sans-serif"],
+            "label-sm":           ["Montserrat", "sans-serif"],
+          },
+          fontSize: {
+            "headline-xl":        ["64px",  { lineHeight:"1.1", letterSpacing:"-0.02em", fontWeight:"500" }],
+            "headline-xl-mobile": ["40px",  { lineHeight:"1.2", fontWeight:"500" }],
+            "headline-lg":        ["48px",  { lineHeight:"1.2", fontWeight:"400" }],
+            "headline-md":        ["32px",  { lineHeight:"1.3", fontWeight:"400" }],
+            "tagline-italic":     ["24px",  { lineHeight:"1.4", fontWeight:"400" }],
+            "body-lg":            ["18px",  { lineHeight:"1.6", fontWeight:"400" }],
+            "body-md":            ["16px",  { lineHeight:"1.6", fontWeight:"400" }],
+            "nav-link":           ["14px",  { lineHeight:"1.0", letterSpacing:"0.1em", fontWeight:"500" }],
+            "label-sm":           ["12px",  { lineHeight:"1.0", letterSpacing:"0.05em", fontWeight:"600" }],
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- ============================================================
+       SHARED STYLESHEET – custom utilities not covered by Tailwind
+       ============================================================ -->
+  <style>
+    /* Hide scrollbar on the horizontal gallery strip */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Material icon weight */
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* Active-page dot indicator under nav links */
+    .nav-active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 4px;
+      border-radius: 9999px;
+      background: #D47285;
+    }
+
+    /* Smooth fade-in animation on page load */
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(24px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.7s ease forwards; }
+    .fade-up-delay-1 { animation: fadeUp 0.7s 0.15s ease forwards; opacity:0; }
+    .fade-up-delay-2 { animation: fadeUp 0.7s 0.3s  ease forwards; opacity:0; }
+    .fade-up-delay-3 { animation: fadeUp 0.7s 0.45s ease forwards; opacity:0; }
+  </style>
+</head>
+
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased selection:bg-sweet-blossom selection:text-on-surface">
+
+  <!-- ============================================================
+       TOP NAVIGATION BAR
+       Sticky header that stays visible when the user scrolls.
+       The mobile "hamburger" button reveals/hides the mobile menu.
+       ============================================================ -->
+  <nav id="main-nav" class="bg-surface/95 backdrop-blur-md sticky top-0 z-50 border-b border-sweet-blossom/10 transition-all duration-300">
+    <div class="max-w-container-max mx-auto px-8 py-4 flex items-center justify-between md:grid md:grid-cols-3">
+
+      <!-- Left nav links (desktop only) -->
+      <div class="hidden md:flex items-center space-x-10">
+        <a href="./index.html" class="font-nav-link text-nav-link uppercase tracking-widest text-secondary relative nav-active">Home</a>
+        <a href="./gallery.html" class="font-nav-link text-nav-link uppercase tracking-widest text-on-surface-variant hover:text-antique-rose transition-colors">Gallery</a>
+        <a href="./about.html"   class="font-nav-link text-nav-link uppercase tracking-widest text-on-surface-variant hover:text-antique-rose transition-colors">About Us</a>
+      </div>
+
+      <!-- Centre logo -->
+      <div class="flex flex-col items-center justify-center">
+        <a href="./index.html" class="flex flex-col items-center group">
+          <span class="font-headline-md text-headline-md text-secondary leading-none tracking-tight">Hem Bakes</span>
+          <span class="font-label-sm text-[10px] uppercase tracking-[0.25em] text-antique-rose mt-1">Canberra</span>
+        </a>
+      </div>
+
+      <!-- Right nav (desktop) + mobile hamburger -->
+      <div class="flex items-center justify-end space-x-6">
+        <a href="./about.html#enquiry-form" class="hidden md:block font-nav-link text-nav-link uppercase tracking-widest text-on-surface-variant hover:text-antique-rose transition-colors">Contact Us</a>
+        <a href="./about.html#enquiry-form" class="px-6 py-2.5 bg-antique-rose text-white rounded-full font-label-sm uppercase tracking-widest hover:bg-sweet-blossom transition-all duration-300 shadow-md shadow-antique-rose/20">Order Now</a>
+        <!-- Mobile hamburger – JS toggles #mobile-menu below -->
+        <button id="hamburger-btn" aria-label="Open navigation menu" class="md:hidden text-secondary p-2 ml-2">
+          <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         MOBILE SLIDE-DOWN MENU
+         Hidden by default; toggled by the hamburger button above.
+         ============================================================ -->
+    <div id="mobile-menu" class="hidden md:hidden bg-surface border-t border-sweet-blossom/10 px-8 py-6 space-y-6">
+      <a href="./index.html" class="block font-nav-link text-nav-link uppercase tracking-widest text-secondary">Home</a>
+      <a href="./gallery.html" class="block font-nav-link text-nav-link uppercase tracking-widest text-on-surface-variant">Gallery</a>
+      <a href="./about.html"   class="block font-nav-link text-nav-link uppercase tracking-widest text-on-surface-variant">About Us</a>
+      <a href="./about.html#enquiry-form" class="block font-nav-link text-nav-link uppercase tracking-widest text-on-surface-variant">Contact Us</a>
+      <a href="./about.html#enquiry-form" class="inline-block px-8 py-3 bg-antique-rose text-white rounded-full font-label-sm uppercase tracking-widest">Order Now</a>
+    </div>
+  </nav>
+
+  <main class="flex-grow">
+
+    <!-- ============================================================
+         SECTION 1 – HERO
+         Split layout: text on the left, hero image on the right.
+         ============================================================ -->
+    <section class="py-12 md:py-24 px-gutter max-w-container-max mx-auto relative overflow-hidden">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+
+        <!-- Text block -->
+        <div class="flex flex-col space-y-8">
+          <span class="fade-up font-label-sm text-label-sm uppercase tracking-[0.15em] text-antique-rose bg-sweet-blossom/10 px-4 py-2 rounded-full self-start">
+            Canberra Custom Cakes
+          </span>
+          <h1 class="fade-up-delay-1 font-headline-xl text-secondary text-5xl md:text-7xl leading-[1.05] tracking-tight max-w-[10ch]">
+            <span style="color:#D47285;">Baking</span> moments into <span style="color:#D47285;">memories</span>
+          </h1>
+          <p class="fade-up-delay-2 font-tagline-italic text-tagline-italic text-antique-rose italic">
+            Soft, beautiful, and celebration-forward.
+          </p>
+          <p class="fade-up-delay-2 font-body-lg text-on-surface-variant max-w-lg leading-relaxed">
+            Every Hem Bakes creation is handmade with love, like receiving a handwritten note wrapped in tissue paper.
+          </p>
+          <div class="fade-up-delay-3 flex flex-wrap gap-4 pt-4">
+            <a href="./about.html#enquiry-form"
+               class="inline-flex items-center justify-center px-10 py-4 rounded-full bg-antique-rose text-white font-label-sm uppercase tracking-widest hover:bg-sweet-blossom transition-all duration-300 shadow-lg shadow-antique-rose/20">
+              Order Now
+            </a>
+            <a href="./gallery.html"
+               class="inline-flex items-center justify-center px-10 py-4 rounded-full border border-secondary text-secondary font-label-sm uppercase tracking-widest hover:bg-secondary/5 transition-all duration-300">
+              Explore Gallery
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero image -->
+        <div class="relative">
+          <div class="aspect-[4/5] rounded-[3rem] overflow-hidden bg-surface-container-low border-[12px] border-white shadow-2xl shadow-antique-rose/10 transform rotate-2">
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDy2h1Hgpr0HKYTLAdJkWLeaDmCn2R5IHFSStfTEKe_FOGgYleYK0pZlspbe690_l6sKcEB3Sg76hhXuyJtNfJV9bdtxsKu7lNfXMhWY8-zssF2v8zmTGAncBoqu_3Jf0rbapnspBzhX4C-kayvwjLabyFk_G9sZ6ypF5GRYRuLt8ZnysXE_joc5YOxn3IW82KGR4bAMqtXi27ZrtSXgC-kSzX9ASk8fOTSHXLjUtO8K33IW5dpxgT2b3rl9VGQXbk1j15njrH7xOI"
+              alt="Artisanal custom celebration cake by Hem Bakes"
+              class="w-full h-full object-cover"
+            >
+          </div>
+          <!-- Decorative floating blob -->
+          <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-sweet-blossom/20 rounded-full blur-2xl -z-10"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 2 – ABOUT TEASER
+         Brief brand intro with image grid and stat block.
+         ============================================================ -->
+    <section class="py-section-padding-mobile md:py-section-padding-desktop bg-surface-container-low/50">
+      <div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+
+        <!-- Image grid (left) -->
+        <div class="order-2 md:order-1">
+          <div class="grid grid-cols-2 gap-4">
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVLpkbChOClbXPbTM1HIQ291niZKU2et7-p6stRbsPL8PyIlJ7pQ5VAGlpfjCTyUpgJwtAQiVDO_4Fen1g9evFY7u9aToIQm4dBtG7_p3rm1CpMJY9Fnp5RxoslEYXGqXCTE_-SKRstFFQ4seDXm0Irpk-WjO3EiUv50lgXrXOuOqw_uIZ0nR6OLboTalf8LTgIqF-9vV51EZYOuw8Z4Cytx3ijpKEl1yk_17jjI0ST5nUC60CpfPojW70BVQmenIvBFccIXB1ycQ"
+              alt="Baking process at Hem Bakes"
+              class="rounded-2xl aspect-square object-cover shadow-lg"
+            >
+            <div class="bg-sweet-blossom/10 rounded-2xl p-8 flex flex-col justify-center">
+              <span class="font-headline-lg text-secondary text-4xl">100%</span>
+              <p class="font-label-sm text-[10px] uppercase tracking-widest text-antique-rose mt-2">Handcrafted</p>
+            </div>
+            <div class="bg-surface-container rounded-2xl p-8 flex flex-col justify-center">
+              <span class="font-headline-lg text-secondary text-4xl">2+</span>
+              <p class="font-label-sm text-[10px] uppercase tracking-widest text-antique-rose mt-2">Years Baking</p>
+            </div>
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuARZfrS-gbTUx2JvteCibwRwBHH7BMzQh70MxLKWueuxfQqxmq4dmwPkBDw_NKZ_PJThwVU7zQ54iTRD9N5QblMgGC9RF9aUBjLw6VdyYM9W8oqnmqXlzMUaHWpPdHcUBP5SAIVAkhjyq37uvEj72gPGqixXPLfsIbUCk1Lwnt7X1O4wnihlN_uWCVmTy6WdvURl6A0XfUuuhmaEq1M3lGnQfx8xk1bCQAnWUH2O7suyzGY8Ewe0ts8FkZbaz-qy8oZa7BW9n68NwI"
+              alt="Baker hands at Hem Bakes"
+              class="rounded-2xl aspect-square object-cover shadow-lg"
+            >
+          </div>
+        </div>
+
+        <!-- Text block (right) -->
+        <div class="order-1 md:order-2 space-y-6">
+          <h2 class="font-headline-xl text-secondary text-4xl md:text-5xl">About Us</h2>
+          <p class="font-tagline-italic text-tagline-italic text-antique-rose italic">
+            Elegance meets pure, local ingredients.
+          </p>
+          <p class="font-body-md text-on-surface-variant leading-relaxed">
+            Hem Bakes is a bespoke Canberra-based studio dedicated to the art of fine baking. We marry classic techniques with a modern aesthetic to deliver a truly luxurious experience.
+          </p>
+          <p class="font-body-md text-on-surface-variant leading-relaxed">
+            Every creation begins with organic Madagascan vanilla beans, locally sourced free-range eggs, and premium European butter. No compromises, just pure quality.
+          </p>
+          <a href="./about.html" class="inline-block mt-2 font-nav-link text-antique-rose hover:text-secondary transition-colors uppercase tracking-widest text-sm">
+            Learn more about our story →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 3 – ROLLING PHOTO GALLERY (HOMEPAGE SLIDESHOW)
+
+         HOW IT WORKS:
+         By default this section shows placeholder images from the
+         Stitch design. To replace these with LIVE FACEBOOK PHOTOS
+         from www.facebook.com/hembakes/photos, open the file:
+           ./assets/js/gallery-feed.js
+         …and follow the instructions in that file.
+
+         The arrows (<  >) scroll the strip left / right.
+         ============================================================ -->
+    <section class="py-section-padding-mobile md:py-section-padding-desktop" id="home-gallery">
+      <div class="max-w-container-max mx-auto px-gutter mb-12 flex justify-between items-end">
+        <div>
+          <h2 class="font-headline-xl text-secondary text-4xl md:text-5xl">The Gallery</h2>
+          <p class="font-body-md text-on-surface-variant mt-2">A collection of our recent creations</p>
+        </div>
+        <!-- Scroll arrows – controlled by gallery-feed.js -->
+        <div class="flex gap-2">
+          <button id="gallery-prev" aria-label="Scroll gallery left"
+                  class="p-3 rounded-full border border-secondary text-secondary hover:bg-secondary hover:text-white transition-all duration-300">
+            <span class="material-symbols-outlined">chevron_left</span>
+          </button>
+          <button id="gallery-next" aria-label="Scroll gallery right"
+                  class="p-3 rounded-full border border-secondary text-secondary hover:bg-secondary hover:text-white transition-all duration-300">
+            <span class="material-symbols-outlined">chevron_right</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── GALLERY STRIP ────────────────────────────────────────────────────
+           Images are rendered here by JavaScript reading from gallery-data.js.
+           To add or change photos, update your Google Drive folder and the
+           GitHub Action will sync them automatically overnight.
+           ─────────────────────────────────────────────────────────────────── -->
+      <div id="gallery-strip" class="flex overflow-x-auto no-scrollbar gap-6 px-8 md:px-[calc((100vw-1280px)/2+32px)] scroll-smooth">
+        <!-- JS populates this from GALLERY_IMAGES in gallery-data.js -->
+      </div>
+
+      <div class="max-w-container-max mx-auto px-gutter mt-10 text-right">
+        <a href="./gallery.html" class="font-nav-link text-antique-rose hover:text-secondary transition-colors uppercase tracking-widest text-sm">
+          View full gallery →
+        </a>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 4 – OUR MENU CATEGORIES
+         Icon-based grid; links to About enquiry form for quotes.
+         ============================================================ -->
+    <section class="py-section-padding-mobile md:py-section-padding-desktop bg-surface-container-lowest">
+      <div class="max-w-container-max mx-auto px-gutter">
+        <div class="text-center mb-16">
+          <h2 class="font-headline-xl text-secondary text-4xl md:text-5xl mb-4">Our Menu</h2>
+          <p class="font-tagline-italic text-tagline-italic text-antique-rose italic">
+            Exquisite creations for your most special moments
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-12">
+          <!-- Birthday Cakes -->
+          <div class="flex flex-col items-center group cursor-pointer">
+            <div class="w-full aspect-square rounded-2xl bg-surface-container-high mb-4 overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+              <span class="material-symbols-outlined text-5xl text-antique-rose">cake</span>
+            </div>
+            <h3 class="font-headline-md text-xl text-secondary text-center">Birthday Cakes</h3>
+          </div>
+          <!-- Wedding Cakes -->
+          <div class="flex flex-col items-center group cursor-pointer">
+            <div class="w-full aspect-square rounded-2xl bg-surface-container-high mb-4 overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+              <span class="material-symbols-outlined text-5xl text-antique-rose">celebration</span>
+            </div>
+            <h3 class="font-headline-md text-xl text-secondary text-center">Wedding Cakes</h3>
+          </div>
+          <!-- Custom Cakes -->
+          <div class="flex flex-col items-center group cursor-pointer">
+            <div class="w-full aspect-square rounded-2xl bg-surface-container-high mb-4 overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+              <span class="material-symbols-outlined text-5xl text-antique-rose">auto_awesome</span>
+            </div>
+            <h3 class="font-headline-md text-xl text-secondary text-center">Custom Cakes</h3>
+          </div>
+          <!-- Cupcakes -->
+          <div class="flex flex-col items-center group cursor-pointer">
+            <div class="w-full aspect-square rounded-2xl bg-surface-container-high mb-4 overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+              <span class="material-symbols-outlined text-5xl text-antique-rose">bakery_dining</span>
+            </div>
+            <h3 class="font-headline-md text-xl text-secondary text-center">Cupcakes</h3>
+          </div>
+        </div>
+
+        <!-- Pricing note + CTA -->
+        <div class="max-w-2xl mx-auto text-center bg-surface-container-low/30 p-8 rounded-3xl border border-sweet-blossom/10">
+          <p class="font-body-md text-on-surface-variant mb-6 leading-relaxed">
+            Every Hem Bakes creation is bespoke and handcrafted to order. As we use only the finest seasonal ingredients and custom designs, pricing varies based on your unique requirements.
+          </p>
+          <a href="./about.html#enquiry-form"
+             class="inline-flex items-center justify-center px-10 py-4 rounded-full bg-secondary text-white font-label-sm uppercase tracking-widest hover:bg-antique-rose transition-all duration-300 shadow-lg shadow-secondary/10">
+            Enquire for a Quote
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       Update social media links below with your real profile URLs.
+       ============================================================ -->
+  <footer class="bg-surface-container-low border-t border-sweet-blossom/10 py-16">
+    <div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 md:grid-cols-4 gap-12">
+
+      <!-- Brand blurb -->
+      <div class="col-span-1 md:col-span-2">
+        <a href="./index.html" class="font-headline-md text-secondary mb-4 block">Hem Bakes</a>
+        <p class="font-body-md text-on-surface-variant max-w-sm mb-8 leading-relaxed">
+          Creating bespoke, artisanal cakes in the heart of Canberra. Dedicated to beauty, quality, and your most cherished memories.
+        </p>
+        <div class="flex space-x-4">
+          <!-- ⬇ Replace # with your real Facebook URL -->
+          <a href="https://www.facebook.com/hembakes" target="_blank" rel="noopener"
+             aria-label="Hem Bakes on Facebook"
+             class="w-10 h-10 rounded-full bg-secondary text-white flex items-center justify-center hover:bg-antique-rose transition-colors">
+            <span class="material-symbols-outlined text-sm">photo_camera</span>
+          </a>
+          <!-- ⬇ Replace # with your real email link -->
+          <a href="mailto:hello@hembakes.com.au"
+             aria-label="Email Hem Bakes"
+             class="w-10 h-10 rounded-full bg-secondary text-white flex items-center justify-center hover:bg-antique-rose transition-colors">
+            <span class="material-symbols-outlined text-sm">mail</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick links -->
+      <div>
+        <h4 class="font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-6">Quick Links</h4>
+        <ul class="space-y-4 font-nav-link text-sm text-on-surface-variant">
+          <li><a href="./index.html#home-gallery" class="hover:text-antique-rose transition-colors">Gallery</a></li>
+          <li><a href="./about.html"              class="hover:text-antique-rose transition-colors">Our Story</a></li>
+          <li><a href="./about.html#enquiry-form" class="hover:text-antique-rose transition-colors">Custom Orders</a></li>
+          <li><a href="./about.html#enquiry-form" class="hover:text-antique-rose transition-colors">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact details -->
+      <div>
+        <h4 class="font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-6">Contact</h4>
+        <p class="font-body-md text-on-surface-variant text-sm mb-2">Canberra, ACT</p>
+        <p class="font-body-md text-on-surface-variant text-sm mb-4">
+          <a href="mailto:hello@hembakes.com.au" class="hover:text-antique-rose transition-colors">hello@hembakes.com.au</a>
+        </p>
+        <p class="font-label-sm text-[10px] text-antique-rose uppercase tracking-widest mt-8">© 2024 Hem Bakes Artisanal Bakery</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT
+       gallery-data.js  → the list of all gallery photos
+       main.js          → mobile nav, scroll arrows, smooth links
+       ============================================================ -->
+  <script src="./assets/gallery-data.js"></script>
+  <script src="./assets/js/main.js"></script>
+
+  <!-- Renders the homepage rolling slideshow from GALLERY_IMAGES -->
+  <script>
+    (function () {
+      const strip = document.getElementById('gallery-strip');
+      if (!strip || typeof GALLERY_IMAGES === 'undefined') return;
+
+      // Show first 8 images in the strip (all loop on the gallery page)
+      const slides = GALLERY_IMAGES.slice(0, 8);
+
+      slides.forEach(function (item) {
+        const card = document.createElement('div');
+        card.className = 'flex-shrink-0 w-72 md:w-80 aspect-[4/5] rounded-3xl overflow-hidden bg-surface-variant';
+
+        const img = document.createElement('img');
+        img.src       = item.src;
+        img.alt       = item.alt || 'Hem Bakes creation';
+        img.className = 'w-full h-full object-cover hover:scale-105 transition-transform duration-700';
+        img.loading   = 'lazy';
+
+        card.appendChild(img);
+        strip.appendChild(card);
+      });
+    })();
+  </script>
+
+</body>
+</html>

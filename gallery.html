@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ============================================================
+       SEO: Page title and description
+       ============================================================ -->
+  <title>Gallery – Hem Bakes | Bespoke Artisanal Cakes, Canberra</title>
+  <meta name="description" content="Browse the Hem Bakes gallery – a curated collection of bespoke birthday, wedding, and custom celebration cakes handcrafted in Canberra, ACT.">
+
+  <!-- ============================================================
+       GOOGLE FONTS & MATERIAL ICONS
+       (Same fonts used site-wide for visual consistency)
+       ============================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- ============================================================
+       TAILWIND DESIGN TOKENS (identical across all three pages)
+       ============================================================ -->
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary":                  "#954053",
+            "secondary":                "#546438",
+            "antique-rose":             "#D47285",
+            "sweet-blossom":            "#F7A3B7",
+            "warm-espresso":            "#3C3530",
+            "surface":                  "#fdf9f1",
+            "surface-bright":           "#fdf9f1",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low":    "#f7f3eb",
+            "surface-container":        "#f1ede6",
+            "surface-container-high":   "#ece8e0",
+            "surface-container-highest":"#e6e2da",
+            "surface-dim":              "#dddad2",
+            "surface-variant":          "#e6e2da",
+            "on-surface":               "#1c1c17",
+            "on-surface-variant":       "#544245",
+            "on-primary":               "#ffffff",
+            "on-secondary":             "#ffffff",
+            "outline":                  "#877274",
+            "outline-variant":          "#d9c1c3",
+            "tertiary":                 "#8a4759",
+            "inverse-surface":          "#31302b",
+            "primary-fixed":            "#ffd9de",
+            "on-primary-fixed":         "#400014",
+          },
+          borderRadius: {
+            DEFAULT: "1rem", lg: "2rem", xl: "3rem", full: "9999px",
+          },
+          spacing: {
+            "gutter": "32px",
+            "section-padding-desktop": "100px",
+            "section-padding-mobile":  "60px",
+            "container-max":           "1280px",
+          },
+          fontFamily: {
+            "headline-xl":        ["Playfair Display", "serif"],
+            "headline-xl-mobile": ["Playfair Display", "serif"],
+            "headline-lg":        ["Playfair Display", "serif"],
+            "headline-md":        ["Playfair Display", "serif"],
+            "tagline-italic":     ["Playfair Display", "serif"],
+            "body-lg":            ["Montserrat", "sans-serif"],
+            "body-md":            ["Montserrat", "sans-serif"],
+            "nav-link":           ["Montserrat", "sans-serif"],
+            "label-sm":           ["Montserrat", "sans-serif"],
+          },
+          fontSize: {
+            "headline-xl":        ["64px",  { lineHeight:"1.1", letterSpacing:"-0.02em", fontWeight:"500" }],
+            "headline-xl-mobile": ["40px",  { lineHeight:"1.2", fontWeight:"500" }],
+            "headline-lg":        ["48px",  { lineHeight:"1.2", fontWeight:"400" }],
+            "headline-md":        ["32px",  { lineHeight:"1.3", fontWeight:"400" }],
+            "tagline-italic":     ["24px",  { lineHeight:"1.4", fontWeight:"400" }],
+            "body-lg":            ["18px",  { lineHeight:"1.6", fontWeight:"400" }],
+            "body-md":            ["16px",  { lineHeight:"1.6", fontWeight:"400" }],
+            "nav-link":           ["14px",  { lineHeight:"1.0", letterSpacing:"0.1em", fontWeight:"500" }],
+            "label-sm":           ["12px",  { lineHeight:"1.0", letterSpacing:"0.05em", fontWeight:"600" }],
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* ============================================================
+       LIGHTBOX OVERLAY
+       When a gallery photo is clicked, it appears full-screen.
+       ============================================================ */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(28, 28, 23, 0.92);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img { max-height: 90vh; max-width: 90vw; border-radius: 1rem; }
+  </style>
+</head>
+
+<body class="bg-surface text-on-surface antialiased font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+
+  <!-- ============================================================
+       TOP NAVIGATION BAR
+       "Gallery" is the active link (indicated by underline).
+       ============================================================ -->
+  <nav class="bg-surface/95 backdrop-blur-md sticky top-0 z-50 border-b border-sweet-blossom/10">
+    <div class="max-w-container-max mx-auto px-8 py-4 flex items-center justify-between md:grid md:grid-cols-3">
+      <div class="hidden md:flex items-center space-x-10">
+        <a href="./index.html" class="font-nav-link text-nav-link uppercase tracking-widest text-on-surface-variant hover:text-antique-rose transition-colors">Home</a>
+        <a href="./gallery.html" class="font-nav-link text-nav-link uppercase tracking-widest text-secondary relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[1px] after:bg-secondary">Gallery</a>
+        <a href="./about.html"   class="font-nav-link text-nav-link uppercase tracking-widest text-on-surface-variant hover:text-antique-rose transition-colors">About Us</a>
+      </div>
+      <div class="flex flex-col items-center justify-center">
+        <a href="./index.html" class="flex flex-col items-center group">
+          <span class="font-headline-md text-headline-md text-secondary leading-none tracking-tight">Hem Bakes</span>
+          <span class="font-label-sm text-[10px] uppercase tracking-[0.25em] text-antique-rose mt-1">Canberra</span>
+        </a>
+      </div>
+      <div class="flex items-center justify-end space-x-6">
+        <a href="./about.html#enquiry-form" class="hidden md:block font-nav-link text-nav-link uppercase tracking-widest text-on-surface-variant hover:text-antique-rose transition-colors">Contact Us</a>
+        <a href="./about.html#enquiry-form" class="px-6 py-2.5 bg-antique-rose text-white rounded-full font-label-sm uppercase tracking-widest hover:bg-sweet-blossom transition-all duration-300 shadow-md shadow-antique-rose/20">Order Now</a>
+        <button id="hamburger-btn" aria-label="Open navigation menu" class="md:hidden text-secondary p-2 ml-2">
+          <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden bg-surface border-t border-sweet-blossom/10 px-8 py-6 space-y-6">
+      <a href="./index.html"   class="block font-nav-link text-nav-link uppercase tracking-widest text-on-surface-variant">Home</a>
+      <a href="./gallery.html" class="block font-nav-link text-nav-link uppercase tracking-widest text-secondary">Gallery</a>
+      <a href="./about.html"   class="block font-nav-link text-nav-link uppercase tracking-widest text-on-surface-variant">About Us</a>
+      <a href="./about.html#enquiry-form" class="block font-nav-link text-nav-link uppercase tracking-widest text-on-surface-variant">Contact Us</a>
+      <a href="./about.html#enquiry-form" class="inline-block px-8 py-3 bg-antique-rose text-white rounded-full font-label-sm uppercase tracking-widest">Order Now</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ============================================================
+         GALLERY HERO
+         Editorial intro text above the photo grid.
+         ============================================================ -->
+    <section class="max-w-container-max mx-auto px-gutter pt-16 pb-12 md:pt-24 md:pb-20 text-center flex flex-col items-center">
+      <span class="font-tagline-italic text-tagline-italic text-secondary mb-4 opacity-80">Our Portfolio</span>
+      <h1 class="font-headline-xl-mobile md:font-headline-xl text-on-surface mb-8 max-w-4xl mx-auto leading-tight text-4xl md:text-6xl">
+        Artistry in <span class="text-primary italic">Buttercream</span>
+      </h1>
+      <p class="font-body-lg text-on-surface-variant max-w-2xl mx-auto font-light leading-relaxed italic">
+        A curated exhibition of our bespoke creations. From intricate sugar flora to minimalist modern tiers,
+        explore the delicate details that define our boutique approach to celebration.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         GALLERY GRID – Powered by Google Drive via gallery-data.js
+
+         HOW THIS WORKS:
+         Images are loaded from ./assets/gallery-data.js which contains
+         the GALLERY_IMAGES array. That file is automatically kept
+         up-to-date by the GitHub Action (.github/workflows/sync-drive.yml).
+
+         TO ADD NEW PHOTOS:
+           1. Upload your image to the shared Google Drive folder:
+              https://drive.google.com/drive/folders/1PoOctAq1FhN186Q8sGyAe4IGspcekmmY
+           2. Wait for the overnight GitHub Action to run (or trigger it
+              manually in GitHub → Actions → "Sync Google Drive Gallery").
+           3. Your new photo will appear on the site automatically.
+
+         TO ADD PHOTOS RIGHT NOW (without waiting for the Action):
+           1. Save your image to: ./assets/gallery/your-photo.jpg
+           2. Open gallery-data.js and add a new entry:
+              { src: "./assets/gallery/your-photo.jpg", alt: "Description" }
+         ============================================================ -->
+    <section class="max-w-container-max mx-auto px-gutter pb-section-padding-mobile md:pb-section-padding-desktop" id="gallery-grid">
+      <div class="flex items-center gap-4 mb-10">
+        <div class="h-[1px] flex-grow bg-outline-variant/40"></div>
+        <span class="font-label-sm text-[10px] uppercase tracking-widest text-secondary">Our Creations</span>
+        <div class="h-[1px] flex-grow bg-outline-variant/40"></div>
+      </div>
+
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         GALLERY CALL TO ACTION
+         Bottom conversion banner linking to the enquiry form.
+         ============================================================ -->
+    <section class="max-w-container-max mx-auto px-gutter pb-24 text-center">
+      <div class="bg-surface-container-high rounded-xl p-12 md:p-20 relative overflow-hidden shadow-sm border border-outline-variant/30">
+        <!-- Decorative background blob -->
+        <div class="absolute -top-12 -right-12 w-48 h-48 bg-sweet-blossom/20 rounded-full blur-3xl -z-0"></div>
+        <div class="relative z-10">
+          <h2 class="font-headline-xl-mobile md:font-headline-xl text-on-surface mb-6 italic leading-tight text-3xl md:text-5xl">
+            Ready to commission your centrepiece?
+          </h2>
+          <p class="font-body-lg text-on-surface-variant max-w-xl mx-auto mb-10 font-light">
+            Let's craft a bespoke creation tailored entirely to your vision and celebration.
+          </p>
+          <a href="./about.html#enquiry-form"
+             class="inline-block bg-primary text-on-primary px-10 py-4 rounded-full font-label-sm text-label-sm uppercase tracking-widest hover:bg-tertiary transition-all duration-300 shadow-md">
+            Enquire Now
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER (identical across all pages)
+       ============================================================ -->
+  <footer class="bg-surface-container-low border-t border-sweet-blossom/10 py-16">
+    <div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 md:grid-cols-4 gap-12">
+      <div class="col-span-1 md:col-span-2">
+        <a href="./index.html" class="font-headline-md text-secondary mb-4 block">Hem Bakes</a>
+        <p class="font-body-md text-on-surface-variant max-w-sm mb-8 leading-relaxed">
+          Creating bespoke, artisanal cakes in the heart of Canberra. Dedicated to beauty, quality, and your most cherished memories.
+        </p>
+        <div class="flex space-x-4">
+          <a href="https://www.facebook.com/hembakes" target="_blank" rel="noopener" aria-label="Facebook"
+             class="w-10 h-10 rounded-full bg-secondary text-white flex items-center justify-center hover:bg-antique-rose transition-colors">
+            <span class="material-symbols-outlined text-sm">photo_camera</span>
+          </a>
+          <a href="mailto:hello@hembakes.com.au" aria-label="Email"
+             class="w-10 h-10 rounded-full bg-secondary text-white flex items-center justify-center hover:bg-antique-rose transition-colors">
+            <span class="material-symbols-outlined text-sm">mail</span>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-6">Quick Links</h4>
+        <ul class="space-y-4 font-nav-link text-sm text-on-surface-variant">
+          <li><a href="./gallery.html"            class="hover:text-antique-rose transition-colors">Gallery</a></li>
+          <li><a href="./about.html"              class="hover:text-antique-rose transition-colors">Our Story</a></li>
+          <li><a href="./about.html#enquiry-form" class="hover:text-antique-rose transition-colors">Custom Orders</a></li>
+          <li><a href="./about.html#enquiry-form" class="hover:text-antique-rose transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-6">Contact</h4>
+        <p class="font-body-md text-on-surface-variant text-sm mb-2">Canberra, ACT</p>
+        <p class="font-body-md text-on-surface-variant text-sm mb-4">
+          <a href="mailto:hello@hembakes.com.au" class="hover:text-antique-rose transition-colors">hello@hembakes.com.au</a>
+        </p>
+        <p class="font-label-sm text-[10px] text-antique-rose uppercase tracking-widest mt-8">© 2024 Hem Bakes Artisanal Bakery</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       LIGHTBOX OVERLAY (full-screen image viewer)
+       Clicking any gallery image opens this overlay.
+       Clicking anywhere on the overlay closes it.
+       ============================================================ -->
+  <div id="lightbox" role="dialog" aria-label="Image lightbox" onclick="closeLightbox()">
+    <button onclick="closeLightbox()" aria-label="Close lightbox"
+            class="absolute top-6 right-8 text-white text-4xl font-light leading-none hover:text-antique-rose transition-colors z-10">
+      &times;
+    </button>
+    <img id="lightbox-img" src="" alt="Full size gallery image">
+  </div>
+
+  <!-- gallery-data.js  → array of all photos (auto-updated by GitHub Action) -->
+  <script src="./assets/gallery-data.js"></script>
+  <!-- Shared JS (nav, lightbox, smooth scroll) -->
+  <script src="./assets/js/main.js"></script>
+
+  <!-- Renders the masonry gallery grid from GALLERY_IMAGES -->
+  <script>
+    (function () {
+      const grid = document.getElementById('gallery-grid-container');
+      if (!grid || typeof GALLERY_IMAGES === 'undefined') return;
+
+      // Alternating aspect ratios for the editorial masonry feel
+      const ASPECTS = [
+        'aspect-[3/4]', 'aspect-square', 'aspect-[4/5]',
+        'aspect-[16/10]', 'aspect-[3/4]', 'aspect-[4/5]'
+      ];
+      // Alternating vertical offsets on large screens
+      const OFFSETS = ['', 'lg:mt-12', '', '', 'lg:-mt-12', ''];
+
+      GALLERY_IMAGES.forEach(function (item, i) {
+        const wrapper = document.createElement('div');
+        wrapper.className = `group flex flex-col cursor-pointer ${OFFSETS[i % OFFSETS.length]}`;
+        wrapper.setAttribute('onclick', 'openLightbox(this)');
+
+        const frame = document.createElement('div');
+        frame.className = `relative ${ASPECTS[i % ASPECTS.length]} overflow-hidden rounded-xl bg-surface-container-high transition-transform duration-700 group-hover:scale-[1.02]`;
+
+        const img = document.createElement('img');
+        img.src       = item.src;
+        img.alt       = item.alt || `Hem Bakes creation ${i + 1}`;
+        img.className = 'w-full h-full object-cover';
+        img.loading   = 'lazy';
+
+        const overlay = document.createElement('div');
+        overlay.className = 'absolute inset-0 bg-gradient-to-t from-warm-espresso/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500';
+
+        frame.appendChild(img);
+        frame.appendChild(overlay);
+        wrapper.appendChild(frame);
+        grid.appendChild(wrapper);
+      });
+    })();
+  </script>
+
+  <!-- Inline lightbox helpers -->
+  <script>
+    function openLightbox(container) {
+      const img = container.querySelector('img');
+      document.getElementById('lightbox-img').src = img.src;
+      document.getElementById('lightbox-img').alt = img.alt;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+</body>
+</html>
