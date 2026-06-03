@@ -1,0 +1,245 @@
+# =============================================================================
+#  .github/workflows/sync-drive.yml
+#  Hem Bakes – Google Drive Gallery Sync
+# =============================================================================
+#
+#  WHAT THIS DOES:
+#    1. Runs automatically every day at midnight Sydney time (2pm UTC)
+#    2. Also runs whenever you push to the main branch
+#    3. Can also be triggered manually at any time (see GitHub → Actions tab)
+#
+#    It connects to your Google Drive folder using a simple API key,
+#    downloads any image files it finds, saves them to assets/gallery/,
+#    regenerates gallery-data.js with the updated file list,
+#    and commits + pushes the changes back to GitHub so your site updates.
+#
+#  GOOGLE DRIVE FOLDER:
+#    https://drive.google.com/drive/folders/1PoOctAq1FhN186Q8sGyAe4IGspcekmmY
+#
+#  REQUIRED GITHUB SECRET (just one!):
+#    GOOGLE_API_KEY  – A restricted Google Cloud API key with Drive API access.
+#    See the deployment guide for exact setup steps.
+#
+# =============================================================================
+
+name: Sync Google Drive Gallery
+
+on:
+  # ── Run automatically once per day at 2:00 PM UTC (midnight AEST/AEDT) ──
+  schedule:
+    - cron: '0 14 * * *'
+
+  # ── Run whenever code is pushed to the main branch ──
+  push:
+    branches:
+      - main
+
+  # ── Allow manual trigger from the GitHub Actions tab ──
+  workflow_dispatch:
+    inputs:
+      force_redownload:
+        description: 'Force re-download all images (even ones already saved)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+jobs:
+  sync-gallery:
+    name: Download Drive images & update gallery-data.js
+    runs-on: ubuntu-latest
+
+    # Give the Action permission to write files back to the repository
+    permissions:
+      contents: write
+
+    steps:
+
+      # ── Step 1: Check out the repository ──────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── Step 2: Set up Python ─────────────────────────────────────────────
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # ── Step 3: Install the Google API client library ─────────────────────
+      - name: Install dependencies
+        run: pip install requests
+
+      # ── Step 4: Download images from Google Drive and rebuild gallery-data.js
+      #    This Python script is embedded directly in the workflow so there
+      #    are no extra files to manage.
+      # ──────────────────────────────────────────────────────────────────────
+      - name: Sync images from Google Drive
+        env:
+          # This secret must be set in your GitHub repo settings.
+          # See the deployment guide: Settings → Secrets → GOOGLE_API_KEY
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          DRIVE_FOLDER_ID: "1PoOctAq1FhN186Q8sGyAe4IGspcekmmY"
+          FORCE_REDOWNLOAD: ${{ github.event.inputs.force_redownload || 'false' }}
+        run: |
+          python3 << 'PYTHON_SCRIPT'
+          import os
+          import json
+          import requests
+          from pathlib import Path
+
+          # ── Configuration ──────────────────────────────────────────────────
+          API_KEY       = os.environ["GOOGLE_API_KEY"]
+          FOLDER_ID     = os.environ["DRIVE_FOLDER_ID"]
+          FORCE         = os.environ.get("FORCE_REDOWNLOAD", "false").lower() == "true"
+          GALLERY_DIR   = Path("assets/gallery")
+          DATA_FILE     = Path("assets/gallery-data.js")
+          ALLOWED_TYPES = {
+            "image/jpeg", "image/jpg", "image/png",
+            "image/webp", "image/gif", "image/avif"
+          }
+          ALLOWED_EXT   = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif"}
+
+          # ── Create gallery directory if it doesn't exist ───────────────────
+          GALLERY_DIR.mkdir(parents=True, exist_ok=True)
+
+          # ── List all image files in the Drive folder ───────────────────────
+          print(f"📂 Listing files in Drive folder: {FOLDER_ID}")
+          list_url = (
+            f"https://www.googleapis.com/drive/v3/files"
+            f"?q='{FOLDER_ID}'+in+parents+and+trashed=false"
+            f"&fields=files(id,name,mimeType,modifiedTime)"
+            f"&orderBy=modifiedTime+desc"
+            f"&pageSize=100"
+            f"&key={API_KEY}"
+          )
+
+          resp = requests.get(list_url, timeout=30)
+          if resp.status_code != 200:
+            print(f"❌ Drive API error {resp.status_code}: {resp.text}")
+            exit(1)
+
+          files = resp.json().get("files", [])
+          print(f"✅ Found {len(files)} file(s) in Drive folder")
+
+          # ── Filter to image files only ─────────────────────────────────────
+          image_files = [
+            f for f in files
+            if f.get("mimeType", "") in ALLOWED_TYPES
+            or Path(f.get("name", "")).suffix.lower() in ALLOWED_EXT
+          ]
+          print(f"🖼  {len(image_files)} image file(s) after filtering")
+
+          if not image_files:
+            print("⚠️  No images found in the Drive folder. Nothing to update.")
+            exit(0)
+
+          # ── Download each image (skip if already exists unless forced) ─────
+          downloaded   = []
+          skipped      = []
+          failed       = []
+
+          for file in image_files:
+            file_id   = file["id"]
+            file_name = file["name"]
+            dest_path = GALLERY_DIR / file_name
+
+            if dest_path.exists() and not FORCE:
+              print(f"  ⏭  Skipping (already exists): {file_name}")
+              skipped.append(file_name)
+              continue
+
+            # Use the Drive export/download URL for regular (non-Google-native) files
+            download_url = (
+              f"https://www.googleapis.com/drive/v3/files/{file_id}"
+              f"?alt=media&key={API_KEY}"
+            )
+            print(f"  ⬇️  Downloading: {file_name}")
+            dl_resp = requests.get(download_url, timeout=60, stream=True)
+
+            if dl_resp.status_code == 200:
+              with open(dest_path, "wb") as out:
+                for chunk in dl_resp.iter_content(chunk_size=8192):
+                  out.write(chunk)
+              downloaded.append(file_name)
+              print(f"  ✅ Saved: {dest_path}")
+            else:
+              print(f"  ❌ Failed to download {file_name}: {dl_resp.status_code}")
+              failed.append(file_name)
+
+          # ── Collect all image files currently in assets/gallery/ ───────────
+          all_images = sorted([
+            f for f in GALLERY_DIR.iterdir()
+            if f.is_file() and f.suffix.lower() in ALLOWED_EXT
+          ], key=lambda p: p.stat().st_mtime, reverse=True)
+
+          print(f"\n📸 Total images in gallery folder: {len(all_images)}")
+
+          # ── Regenerate gallery-data.js ─────────────────────────────────────
+          entries = []
+          for img in all_images:
+            # Use a relative path that works from the HTML files at the repo root
+            rel_src = f"./assets/gallery/{img.name}"
+            # Generate a readable alt text from the filename
+            # e.g. "wedding-cake-blue.jpg" → "Wedding cake blue"
+            stem    = img.stem.replace("-", " ").replace("_", " ").strip()
+            alt_txt = stem[0].upper() + stem[1:] if stem else f"Hem Bakes creation"
+            entries.append({"src": rel_src, "alt": alt_txt})
+
+          js_entries = ""
+          for e in entries:
+            src_val = e["src"].replace("\\", "/")
+            alt_val = e["alt"].replace('"', '\\"')
+            js_entries += f'  {{ src: "{src_val}", alt: "{alt_val}" }},\n'
+
+          gallery_js = f"""/**
+           * gallery-data.js  –  AUTO-GENERATED by GitHub Actions
+           * Last synced: {__import__('datetime').datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}
+           *
+           * DO NOT EDIT THIS FILE MANUALLY.
+           * To add photos: upload to your Google Drive folder and the next
+           * scheduled sync (or a manual run) will update this file automatically.
+           *
+           * Google Drive folder:
+           *   https://drive.google.com/drive/folders/{FOLDER_ID}
+           */
+
+          const GALLERY_IMAGES = [
+          {js_entries}];
+          """
+
+          DATA_FILE.write_text(gallery_js, encoding="utf-8")
+          print(f"\n✅ gallery-data.js written with {len(entries)} image(s)")
+
+          # ── Summary ────────────────────────────────────────────────────────
+          print(f"\n── Sync Summary ──────────────────────────────────────")
+          print(f"  Downloaded : {len(downloaded)}")
+          print(f"  Skipped    : {len(skipped)}")
+          print(f"  Failed     : {len(failed)}")
+          print(f"  Total in gallery: {len(all_images)}")
+          if failed:
+            print(f"\n⚠️  Failed files: {', '.join(failed)}")
+
+          PYTHON_SCRIPT
+
+      # ── Step 5: Commit and push changes if anything changed ───────────────
+      - name: Commit and push gallery updates
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add assets/gallery/ assets/gallery-data.js
+
+          # Only commit if there are actual changes
+          if git diff --staged --quiet; then
+            echo "✅ No changes to commit – gallery is already up to date."
+          else
+            # Count the changes for the commit message
+            CHANGED=$(git diff --staged --name-only | wc -l | tr -d ' ')
+            git commit -m "chore: sync gallery from Google Drive [${CHANGED} file(s) updated] [skip ci]"
+            git push
+            echo "🚀 Changes pushed to GitHub – site will update in ~60 seconds."
+          fi

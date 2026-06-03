@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ============================================================
+       SEO: Page title and description
+       ============================================================ -->
+  <title>About Us – Hem Bakes | Our Story, Canberra</title>
+  <meta name="description" content="Meet the maker behind Hem Bakes. Read our artisan story, discover how we bake, and use the custom order enquiry form to commission your dream cake in Canberra.">
+
+  <!-- Google Fonts & Material Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- ============================================================
+       TAILWIND DESIGN TOKENS
+       ============================================================ -->
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary":                  "#954053",
+            "secondary":                "#546438",
+            "antique-rose":             "#D47285",
+            "sweet-blossom":            "#F7A3B7",
+            "warm-espresso":            "#3C3530",
+            "surface":                  "#fdf9f1",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low":    "#f7f3eb",
+            "surface-container":        "#f1ede6",
+            "surface-container-high":   "#ece8e0",
+            "surface-container-highest":"#e6e2da",
+            "surface-dim":              "#dddad2",
+            "surface-variant":          "#e6e2da",
+            "on-surface":               "#1c1c17",
+            "on-surface-variant":       "#544245",
+            "on-primary":               "#ffffff",
+            "on-secondary":             "#ffffff",
+            "outline":                  "#877274",
+            "outline-variant":          "#d9c1c3",
+            "tertiary":                 "#8a4759",
+            "inverse-surface":          "#31302b",
+          },
+          borderRadius: {
+            DEFAULT: "1rem", lg: "2rem", xl: "3rem", full: "9999px",
+          },
+          spacing: {
+            "gutter": "32px",
+            "section-padding-desktop": "100px",
+            "section-padding-mobile":  "60px",
+            "container-max":           "1280px",
+          },
+          fontFamily: {
+            "headline-xl":        ["Playfair Display", "serif"],
+            "headline-xl-mobile": ["Playfair Display", "serif"],
+            "headline-lg":        ["Playfair Display", "serif"],
+            "headline-md":        ["Playfair Display", "serif"],
+            "tagline-italic":     ["Playfair Display", "serif"],
+            "body-lg":            ["Montserrat", "sans-serif"],
+            "body-md":            ["Montserrat", "sans-serif"],
+            "nav-link":           ["Montserrat", "sans-serif"],
+            "label-sm":           ["Montserrat", "sans-serif"],
+          },
+          fontSize: {
+            "headline-xl":        ["64px",  { lineHeight:"1.1", letterSpacing:"-0.02em", fontWeight:"500" }],
+            "headline-xl-mobile": ["40px",  { lineHeight:"1.2", fontWeight:"500" }],
+            "headline-lg":        ["48px",  { lineHeight:"1.2", fontWeight:"400" }],
+            "headline-md":        ["32px",  { lineHeight:"1.3", fontWeight:"400" }],
+            "tagline-italic":     ["24px",  { lineHeight:"1.4", fontWeight:"400" }],
+            "body-lg":            ["18px",  { lineHeight:"1.6", fontWeight:"400" }],
+            "body-md":            ["16px",  { lineHeight:"1.6", fontWeight:"400" }],
+            "nav-link":           ["14px",  { lineHeight:"1.0", letterSpacing:"0.1em", fontWeight:"500" }],
+            "label-sm":           ["12px",  { lineHeight:"1.0", letterSpacing:"0.05em", fontWeight:"600" }],
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* Connecting line between process steps (desktop only) */
+    .process-line::after {
+      content: '';
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      right: -2rem;
+      height: 1px;
+      background: #D47285;
+      opacity: 0.3;
+      z-index: 0;
+    }
+    @media (max-width: 768px) {
+      .process-line::after { display: none; }
+    }
+
+    /* Form success message (shown after submission) */
+    #form-success {
+      display: none;
+    }
+    #form-success.visible {
+      display: block;
+    }
+  </style>
+</head>
+
+<body class="bg-surface-container-low text-warm-espresso antialiased selection:bg-sweet-blossom selection:text-on-surface">
+
+  <!-- ============================================================
+       TOP NAVIGATION BAR
+       "About Us" is the active link.
+       ============================================================ -->
+  <header class="sticky top-0 z-50 w-full bg-surface-container-low border-b border-secondary/10 transition-all duration-300">
+    <div class="max-w-container-max mx-auto px-gutter py-4 md:py-6">
+      <div class="flex items-center justify-between md:grid md:grid-cols-3">
+        <!-- Left nav -->
+        <nav class="hidden md:flex items-center space-x-10">
+          <a href="./index.html"   class="font-nav-link text-nav-link uppercase tracking-widest text-secondary hover:text-primary transition-colors">Home</a>
+          <a href="./gallery.html" class="font-nav-link text-nav-link uppercase tracking-widest text-secondary hover:text-primary transition-colors">Gallery</a>
+          <a href="./about.html"   class="font-nav-link text-nav-link uppercase tracking-widest text-primary relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[1px] after:bg-primary">About Us</a>
+        </nav>
+        <!-- Centre logo -->
+        <div class="flex flex-col items-center justify-center">
+          <a href="./index.html" class="flex flex-col items-center group">
+            <span class="font-headline-md text-headline-md text-secondary tracking-tight mb-0.5">Hem Bakes</span>
+            <span class="font-label-sm text-[10px] tracking-[0.3em] text-secondary/60 uppercase">Canberra</span>
+          </a>
+        </div>
+        <!-- Right nav -->
+        <div class="hidden md:flex items-center justify-end space-x-8">
+          <a href="./about.html#enquiry-form" class="font-nav-link text-nav-link uppercase tracking-widest text-secondary hover:text-primary transition-colors">Contact Us</a>
+          <a href="./about.html#enquiry-form"
+             class="px-8 py-3 rounded-full bg-antique-rose text-on-primary font-nav-link text-[12px] uppercase tracking-widest hover:bg-primary transition-all shadow-md active:scale-95">
+            Order Now
+          </a>
+        </div>
+        <!-- Mobile hamburger -->
+        <button id="hamburger-btn" aria-label="Open menu" class="md:hidden text-secondary p-2 justify-self-end">
+          <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-surface-container-low border-t border-secondary/10 px-gutter py-6 space-y-6">
+      <a href="./index.html"   class="block font-nav-link text-nav-link uppercase tracking-widest text-secondary">Home</a>
+      <a href="./gallery.html" class="block font-nav-link text-nav-link uppercase tracking-widest text-secondary">Gallery</a>
+      <a href="./about.html"   class="block font-nav-link text-nav-link uppercase tracking-widest text-primary">About Us</a>
+      <a href="./about.html#enquiry-form" class="block font-nav-link text-nav-link uppercase tracking-widest text-secondary">Contact Us</a>
+      <a href="./about.html#enquiry-form" class="inline-block px-8 py-3 bg-antique-rose text-white rounded-full font-label-sm uppercase tracking-widest">Order Now</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         SECTION 1 – OUR STORY (Brand Narrative)
+         Split editorial layout with image on right, text on left.
+         ============================================================ -->
+    <section class="w-full px-gutter py-section-padding-mobile md:py-section-padding-desktop max-w-container-max mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20 items-center">
+
+        <!-- Text column -->
+        <div class="md:col-span-6 order-2 md:order-1">
+          <div class="inline-block px-4 py-1 mb-6 border border-secondary rounded-full">
+            <span class="font-label-sm text-[10px] uppercase tracking-widest text-secondary">Est. 2024 • Canberra</span>
+          </div>
+          <h1 class="font-headline-xl-mobile md:font-headline-xl text-secondary mb-8 leading-[1.1] text-4xl md:text-6xl">
+            <span class="italic font-light block">Our Story,</span>
+            Carefully Folded.
+          </h1>
+          <div class="space-y-6">
+            <p class="font-body-lg text-warm-espresso/90 leading-relaxed">
+              Hem Bakes began as a quiet obsession in a sun-drenched Canberra kitchen. Driven by a desire to bring the uncompromising quality of Parisian patisseries to our community, we spent years perfecting the art of lamination and long-fermentation.
+            </p>
+            <p class="font-body-md text-warm-espresso/80 leading-relaxed">
+              For us, baking is an act of quiet rebellion against the ordinary. We believe that true luxury cannot be rushed. Our doughs rest longer, our ingredients are sourced with meticulous care, and every pastry is finished entirely by hand.
+            </p>
+          </div>
+          <div class="mt-10 flex items-center gap-6">
+            <div class="h-[1px] w-12 bg-primary/40"></div>
+            <span class="font-tagline-italic text-primary italic text-lg">Craftsmanship is our primary ingredient.</span>
+          </div>
+        </div>
+
+        <!-- Image column -->
+        <div class="md:col-span-6 order-1 md:order-2">
+          <div class="relative group">
+            <div class="absolute -inset-4 bg-sweet-blossom/20 rounded-[3rem] -z-10 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-700"></div>
+            <div class="aspect-[4/5] rounded-[3rem] overflow-hidden border border-primary/10 shadow-xl">
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuARZfrS-gbTUx2JvteCibwRwBHH7BMzQh70MxLKWueuxfQqxmq4dmwPkBDw_NKZ_PJThwVU7zQ54iTRD9N5QblMgGC9RF9aUBjLw6VdyYM9W8oqnmqXlzMUaHWpPdHcUBP5SAIVAkhjyq37uvEj72gPGqixXPLfsIbUCk1Lwnt7X1O4wnihlN_uWCVmTy6WdvURl6A0XfUuuhmaEq1M3lGnQfx8xk1bCQAnWUH2O7suyzGY8Ewe0ts8FkZbaz-qy8oZa7BW9n68NwI"
+                alt="Baker's hands working dough at Hem Bakes"
+                class="w-full h-full object-cover"
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 2 – HOW WE BAKE (4-Step Process Timeline)
+         ============================================================ -->
+    <section class="w-full bg-sweet-blossom/10 py-section-padding-mobile md:py-section-padding-desktop">
+      <div class="max-w-container-max mx-auto px-gutter">
+        <div class="text-center mb-16">
+          <h2 class="font-headline-lg text-secondary italic mb-4 text-3xl md:text-5xl">The Way We Bake</h2>
+          <p class="font-body-md text-warm-espresso/70">From our kitchen to your table, here is how we ensure freshness.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-4">
+          <!-- Step 1 -->
+          <div class="relative flex flex-col items-center md:items-start text-center md:text-left group">
+            <div class="process-line w-16 h-16 rounded-full bg-white border border-antique-rose/20 flex items-center justify-center mb-6 shadow-sm z-10 group-hover:border-primary transition-colors">
+              <span class="material-symbols-outlined text-primary">edit_note</span>
+            </div>
+            <h3 class="font-nav-link text-label-sm uppercase tracking-widest text-secondary mb-2">01. Order</h3>
+            <p class="font-body-md text-sm text-warm-espresso/70 leading-relaxed max-w-[200px]">
+              Place your order through our enquiry form or social media.
+            </p>
+          </div>
+          <!-- Step 2 -->
+          <div class="relative flex flex-col items-center md:items-start text-center md:text-left group">
+            <div class="process-line w-16 h-16 rounded-full bg-white border border-antique-rose/20 flex items-center justify-center mb-6 shadow-sm z-10 group-hover:border-primary transition-colors">
+              <span class="material-symbols-outlined text-primary">timer</span>
+            </div>
+            <h3 class="font-nav-link text-label-sm uppercase tracking-widest text-secondary mb-2">02. Preparation</h3>
+            <p class="font-body-md text-sm text-warm-espresso/70 leading-relaxed max-w-[200px]">
+              Our doughs undergo a 48-hour slow fermentation process.
+            </p>
+          </div>
+          <!-- Step 3 -->
+          <div class="relative flex flex-col items-center md:items-start text-center md:text-left group">
+            <div class="process-line w-16 h-16 rounded-full bg-white border border-antique-rose/20 flex items-center justify-center mb-6 shadow-sm z-10 group-hover:border-primary transition-colors">
+              <span class="material-symbols-outlined text-primary">local_fire_department</span>
+            </div>
+            <h3 class="font-nav-link text-label-sm uppercase tracking-widest text-secondary mb-2">03. Freshly Baked</h3>
+            <p class="font-body-md text-sm text-warm-espresso/70 leading-relaxed max-w-[200px]">
+              Items are baked in small batches on the morning of delivery.
+            </p>
+          </div>
+          <!-- Step 4 (no connector line needed – last item) -->
+          <div class="flex flex-col items-center md:items-start text-center md:text-left group">
+            <div class="w-16 h-16 rounded-full bg-white border border-antique-rose/20 flex items-center justify-center mb-6 shadow-sm z-10 group-hover:border-primary transition-colors">
+              <span class="material-symbols-outlined text-primary">celebration</span>
+            </div>
+            <h3 class="font-nav-link text-label-sm uppercase tracking-widest text-secondary mb-2">04. Enjoy</h3>
+            <p class="font-body-md text-sm text-warm-espresso/70 leading-relaxed max-w-[200px]">
+              Collect from our studio or receive your boutique delivery.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 3 – CUSTOM ORDER ENQUIRY FORM
+         ID "enquiry-form" is used by all "Order Now" links to
+         jump directly to this section.
+
+         ──────────────────────────────────────────────────────────
+         FORM SETUP INSTRUCTIONS (choose one option):
+         ──────────────────────────────────────────────────────────
+
+         OPTION A – Web3Forms (recommended, 100% free):
+           1. Visit https://web3forms.com and sign up.
+           2. Copy your unique "Access Key" from the dashboard.
+           3. Find the hidden input field below labelled:
+                 name="access_key"
+              Replace "YOUR_WEB3FORMS_ACCESS_KEY_HERE" with your key.
+           4. Change the form action to:
+                 action="https://api.web3forms.com/submit"
+
+         OPTION B – Formspree:
+           1. Visit https://formspree.io and sign up.
+           2. Create a new form; copy the unique endpoint URL
+              (looks like: https://formspree.io/f/xxxxxx).
+           3. Change the form action to that URL.
+           4. Remove the hidden <input name="access_key"> field.
+
+         In both cases: Customer enquiries will land directly in
+         your nominated email inbox. No server needed.
+         ──────────────────────────────────────────────────────────
+    -->
+    <section class="w-full px-gutter py-section-padding-mobile md:py-section-padding-desktop max-w-container-max mx-auto scroll-mt-20 md:scroll-mt-24" id="enquiry-form">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20 items-start">
+
+        <!-- Left: Contact info -->
+        <div>
+          <h2 class="font-headline-lg text-secondary italic mb-6 text-3xl md:text-5xl">Custom Orders</h2>
+          <p class="font-body-lg text-warm-espresso/80 mb-8 leading-relaxed">
+            Planning a special event, wedding, or boutique gathering? We would love to create a bespoke selection of pastries or architectural cakes for you.
+          </p>
+          <div class="space-y-6">
+            <div class="flex items-center gap-4">
+              <span class="material-symbols-outlined text-primary">mail</span>
+              <a href="mailto:hello@hembakes.com.au" class="font-body-md hover:text-primary transition-colors">hello@hembakes.com.au</a>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="material-symbols-outlined text-primary">location_on</span>
+              <span class="font-body-md">Boutique Studio, Canberra ACT</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="material-symbols-outlined text-primary">photo_camera</span>
+              <a href="https://www.facebook.com/hembakes" target="_blank" rel="noopener"
+                 class="font-body-md hover:text-primary transition-colors">facebook.com/hembakes</a>
+            </div>
+          </div>
+          <!-- Decorative blockquote -->
+          <div class="mt-12 border-l-2 border-antique-rose pl-6">
+            <p class="font-tagline-italic text-primary italic text-lg leading-relaxed">
+              "Every cake we make is a little piece of art, baked with intention and delivered with love."
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: Enquiry form -->
+        <div class="bg-white p-8 md:p-12 rounded-[2rem] border border-primary/10 shadow-xl">
+          <h3 class="font-headline-md text-secondary mb-8 text-2xl">Enquiry Form</h3>
+
+          <!-- ══════════════════════════════════════════════════════
+               FORM ACTION – update the action attribute below:
+               Web3Forms: action="https://api.web3forms.com/submit"
+               Formspree:  action="https://formspree.io/f/YOUR_ID"
+               ══════════════════════════════════════════════════════ -->
+          <form
+            id="contact-form"
+            action="f39481a6-13f6-462a-9842-1cb7e5d65192"
+            method="POST"
+            class="space-y-6"
+          >
+
+            <!-- ── Web3Forms access key ─────────────────────────
+                 ONLY needed if you use Web3Forms (Option A).
+                 Replace the value with your actual Access Key.
+                 If using Formspree, delete this entire line.
+                 ─────────────────────────────────────────────── -->
+            <input type="hidden" name="access_key" value="f39481a6-13f6-462a-9842-1cb7e5d65192">
+
+            <!-- Redirect back to the same page after submission -->
+            <input type="hidden" name="redirect" value="false">
+
+            <!-- Honey-pot spam trap (leave empty) -->
+            <input type="text" name="botcheck" class="hidden" style="display:none">
+
+            <!-- Name & Email row -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label for="field-name" class="block font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-2">Your Name *</label>
+                <input
+                  id="field-name"
+                  type="text"
+                  name="name"
+                  required
+                  placeholder="e.g. Sarah Johnson"
+                  class="w-full bg-surface-container-low border border-transparent focus:border-primary/30 focus:ring-1 focus:ring-primary/30 rounded-xl p-4 font-body-md transition-colors outline-none"
+                >
+              </div>
+              <div>
+                <label for="field-email" class="block font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-2">Email Address *</label>
+                <input
+                  id="field-email"
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="sarah@email.com"
+                  class="w-full bg-surface-container-low border border-transparent focus:border-primary/30 focus:ring-1 focus:ring-primary/30 rounded-xl p-4 font-body-md transition-colors outline-none"
+                >
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div>
+              <label for="field-phone" class="block font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-2">Phone Number</label>
+              <input
+                id="field-phone"
+                type="tel"
+                name="phone"
+                placeholder="0400 000 000"
+                class="w-full bg-surface-container-low border border-transparent focus:border-primary/30 focus:ring-1 focus:ring-primary/30 rounded-xl p-4 font-body-md transition-colors outline-none"
+              >
+            </div>
+
+            <!-- Event type -->
+            <div>
+              <label for="field-event" class="block font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-2">Event Type *</label>
+              <select
+                id="field-event"
+                name="event_type"
+                required
+                class="w-full bg-surface-container-low border border-transparent focus:border-primary/30 focus:ring-1 focus:ring-primary/30 rounded-xl p-4 font-body-md transition-colors outline-none"
+              >
+                <option value="">– Please select –</option>
+                <option value="Wedding">Wedding</option>
+                <option value="Birthday">Birthday Celebration</option>
+                <option value="Corporate">Corporate Event</option>
+                <option value="Private Celebration">Private Celebration</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <!-- Event date -->
+            <div>
+              <label for="field-date" class="block font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-2">Event Date</label>
+              <input
+                id="field-date"
+                type="date"
+                name="event_date"
+                class="w-full bg-surface-container-low border border-transparent focus:border-primary/30 focus:ring-1 focus:ring-primary/30 rounded-xl p-4 font-body-md transition-colors outline-none"
+              >
+            </div>
+
+            <!-- Vision description -->
+            <div>
+              <label for="field-vision" class="block font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-2">Tell Us About Your Vision *</label>
+              <textarea
+                id="field-vision"
+                name="message"
+                required
+                rows="5"
+                placeholder="Describe your dream cake – flavour, design inspiration, colour palette, number of tiers, approximate guest count…"
+                class="w-full bg-surface-container-low border border-transparent focus:border-primary/30 focus:ring-1 focus:ring-primary/30 rounded-xl p-4 font-body-md transition-colors outline-none resize-none"
+              ></textarea>
+            </div>
+
+            <!-- Submit button -->
+            <button
+              type="submit"
+              id="submit-btn"
+              class="w-full py-4 rounded-full bg-primary text-on-primary font-nav-link text-nav-link uppercase tracking-widest hover:bg-tertiary transition-all duration-300 shadow-md active:scale-[0.98]"
+            >
+              Send Enquiry
+            </button>
+
+          </form>
+
+          <!-- ── Success message (shown by JS after submission) ─── -->
+          <div id="form-success" class="text-center py-8">
+            <span class="material-symbols-outlined text-5xl text-secondary block mb-4">check_circle</span>
+            <h4 class="font-headline-md text-secondary mb-2 text-xl">Thank you!</h4>
+            <p class="font-body-md text-warm-espresso/70">
+              Your enquiry has been sent. We'll be in touch within 2 business days.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="bg-surface-container-low border-t border-sweet-blossom/10 py-16">
+    <div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 md:grid-cols-4 gap-12">
+      <div class="col-span-1 md:col-span-2">
+        <a href="./index.html" class="font-headline-md text-secondary mb-4 block">Hem Bakes</a>
+        <p class="font-body-md text-on-surface-variant max-w-sm mb-8 leading-relaxed">
+          Creating bespoke, artisanal cakes in the heart of Canberra. Dedicated to beauty, quality, and your most cherished memories.
+        </p>
+        <div class="flex space-x-4">
+          <a href="https://www.facebook.com/hembakes" target="_blank" rel="noopener" aria-label="Facebook"
+             class="w-10 h-10 rounded-full bg-secondary text-white flex items-center justify-center hover:bg-antique-rose transition-colors">
+            <span class="material-symbols-outlined text-sm">photo_camera</span>
+          </a>
+          <a href="mailto:hello@hembakes.com.au" aria-label="Email"
+             class="w-10 h-10 rounded-full bg-secondary text-white flex items-center justify-center hover:bg-antique-rose transition-colors">
+            <span class="material-symbols-outlined text-sm">mail</span>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-6">Quick Links</h4>
+        <ul class="space-y-4 font-nav-link text-sm text-on-surface-variant">
+          <li><a href="./gallery.html"            class="hover:text-antique-rose transition-colors">Gallery</a></li>
+          <li><a href="./about.html"              class="hover:text-antique-rose transition-colors">Our Story</a></li>
+          <li><a href="./about.html#enquiry-form" class="hover:text-antique-rose transition-colors">Custom Orders</a></li>
+          <li><a href="./about.html#enquiry-form" class="hover:text-antique-rose transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-6">Contact</h4>
+        <p class="font-body-md text-on-surface-variant text-sm mb-2">Canberra, ACT</p>
+        <p class="font-body-md text-on-surface-variant text-sm mb-4">
+          <a href="mailto:hello@hembakes.com.au" class="hover:text-antique-rose transition-colors">hello@hembakes.com.au</a>
+        </p>
+        <p class="font-label-sm text-[10px] text-antique-rose uppercase tracking-widest mt-8">© 2024 Hem Bakes Artisanal Bakery</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Shared JS -->
+  <script src="./assets/js/main.js"></script>
+
+  <!-- ============================================================
+       FORM AJAX SUBMISSION
+       Intercepts the form, submits it with fetch(), and shows a
+       friendly success message without reloading the page.
+       This works with both Web3Forms and Formspree.
+       ============================================================ -->
+  <script>
+    (function () {
+      const form       = document.getElementById('contact-form');
+      const btn        = document.getElementById('submit-btn');
+      const successMsg = document.getElementById('form-success');
+
+      if (!form) return;
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault(); // Stop the browser's default page-reload behaviour
+
+        btn.disabled    = true;
+        btn.textContent = 'Sending…';
+
+        const data = new FormData(form);
+
+        try {
+          const response = await fetch(form.action, {
+            method:  'POST',
+            body:    data,
+            headers: { 'Accept': 'application/json' },
+          });
+
+          if (response.ok) {
+            // ✅ Success: hide form, show thank-you message
+            form.style.display        = 'none';
+            successMsg.style.display  = 'block';
+          } else {
+            // ❌ API error: re-enable button
+            btn.disabled    = false;
+            btn.textContent = 'Send Enquiry';
+            alert('Oops – something went wrong. Please email us directly at hello@hembakes.com.au');
+          }
+        } catch (err) {
+          btn.disabled    = false;
+          btn.textContent = 'Send Enquiry';
+          alert('Network error. Please check your connection and try again.');
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>
