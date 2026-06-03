@@ -1,37 +1,38 @@
-**Production Files Created:**
+1. **The Trigger:** The repository wakes up automatically every day at midnight Sydney time (2 PM UTC), or whenever you click **Run workflow** manually under the GitHub Actions tab.
+2. **The Worker (`sync_drive.py`):** A virtual machine spins up, authenticates with Google Cloud using a secure Service Account Key, and checks your shared Google Drive folder.
+3. **The Sync:** It downloads any new `.jpg` or `.png` files directly into `assets/gallery/`.
+4. **The Database Compilation:** It automatically rewrites `assets/gallery-data.js` with the updated image list and commits the changes back to GitHub, instantly refreshing the live portfolio.
 
+---
 
+## 🛠️ The 3 Quick Actions Required Before Handover
 
-|File |Purpose|
-|-|-|
-|index.html|Live Facebook feed widget slot + editorial masonry grid + click-to-lightbox|
-|gallery.html|Live Facebook feed widget slot + editorial masonry grid + click-to-lightbox|
-|about.html|Brand story, 4-step process, Web3Forms/Formspree enquiry form|
-|assets/js/main.js|mobile nav, gallery scroll arrows, smooth anchors|
-|assets/js/gallery-feed.js|Facebook feed integration — 3 options: Elfsight, Juicer.io, Graph API|
-|.nojekyll|GitHub Pages config (prevents build issues)|
+Before officially launching the site out in the wild, ensure these three configurations are updated with your production details:
 
+### 1. Link the Contact Form
+1. Sign up for a free access key at [web3forms.com](https://web3forms.com).
+2. Open `about.html` in your text editor.
+3. Find the hidden input field placeholder: `YOUR_WEB3FORMS_ACCESS_KEY_HERE`.
+4. Paste your genuine access key into the `value` attribute and save.
 
+### 2. Embed the Facebook Gallery Feed
+1. Sign up for a free widget account at [Elfsight.com](https://elfsight.com) or [Juicer.io](https://juicer.io).
+2. Connect the widget to the official **facebook.com/hembakes** business page.
+3. Open `gallery.html` and look for the placeholder element: `<div id="facebook-feed">`.
+4. Paste the 2-line embed script provided by the widget platform inside that block.
 
+> 🔑 **Handover Tip:** To keep the account in the owner's possession long-term, have the business owner create their own free Elfsight profile, build the widget on their screen, and send you the 2-line code snippet to paste.
 
+### 3. Change Your Masonry Column View (v0 Updates)
+If you ever need to adjust the visual flow of the image grid so short images don't leave empty vertical spaces, apply this CSS configuration to your main stylesheet to activate tight column-stacking:
 
-Your Three Action Items Before Going Live
+```css
+.gallery-container {
+  column-count: 3;       /* Sets up 3 dynamic columns */
+  column-gap: 1.5rem;    /* Uniform horizontal spacing */
+}
 
-1\. Contact Form → Open about.html, find the <form action="YOUR\_WEB3FORMS\_OR\_FORMSPREE\_ENDPOINT\_HERE"> line. Sign up free at web3forms.com and paste your key — the deployment guide has exact steps.
-
-
-
-2\. Facebook Gallery Feed → Open 
-
-gallery.html, find <div id="social-feed-container">. The easiest path is Elfsight.com — sign up, connect facebook.com/hembakes, paste the 2-line embed code inside that div.
-
-
-
-Transfer to Business Owner:
-
-Option A (The Quick Swap): Ask the business owner to create their own free Elfsight account. Have them quickly create the Facebook widget on their screen (it takes two minutes) and copy their new 2-line code snippet. You just open your gallery.html file, swap out your 2 lines of code for theirs, and push to GitHub.
-
-
-
-3\. Push to GitHub Pages → Follow the step-by-step Git commands in the deployment guide attached above. The whole process takes \~10 minutes.
-
+.gallery-item {
+  break-inside: avoid;   /* Prevents images from splitting across columns */
+  margin-bottom: 1.5rem; /* Uniform vertical spacing */
+}
