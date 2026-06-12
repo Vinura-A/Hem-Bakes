@@ -49,9 +49,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib
 
-      - name: Run sync script
+      - name: Run gallery sync script
         env:
           GA_SERVICE_ACCOUNT_KEY: ${{ secrets.GA_SERVICE_ACCOUNT_KEY }}
           DRIVE_FOLDER_ID: '1PoOctAq1FhN186Q8sGyAe4IGspcekmmY'
         run: |
           python .github/workflows/sync_drive.py
+
+      - name: Run testimonials sync script
+        run: |
+          python .github/workflows/sync_testimonials.py
+
+      - name: Commit and Push changes

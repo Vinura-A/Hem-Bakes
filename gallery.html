@@ -113,6 +113,17 @@
     }
     #lightbox.open { display: flex; }
     #lightbox img { max-height: 90vh; max-width: 90vw; border-radius: 1rem; }
+
+    /* Active-page underline indicator under nav links */
+    .nav-active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: #546438;
+    }
   </style>
 </head>
 
@@ -122,12 +133,12 @@
        TOP NAVIGATION BAR
        "Gallery" is the active link (indicated by underline).
        ============================================================ -->
-  <nav class="bg-surface/95 backdrop-blur-md sticky top-0 z-50 border-b border-sweet-blossom/10">
+  <nav id="main-nav" class="bg-surface/95 backdrop-blur-md sticky top-0 z-50 border-b border-sweet-blossom/10 transition-all duration-300">
     <div class="max-w-container-max mx-auto px-8 py-4 flex items-center justify-between md:grid md:grid-cols-3">
       <div class="hidden md:flex items-center space-x-10">
         <a href="./index.html" class="font-nav-link text-nav-link uppercase tracking-widest text-on-surface-variant hover:text-antique-rose transition-colors">Home</a>
-        <a href="./gallery.html" class="font-nav-link text-nav-link uppercase tracking-widest text-secondary relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[1px] after:bg-secondary">Gallery</a>
-        <a href="./about.html"   class="font-nav-link text-nav-link uppercase tracking-widest text-on-surface-variant hover:text-antique-rose transition-colors">About Us</a>
+        <a href="./gallery.html" class="font-nav-link text-nav-link uppercase tracking-widest text-secondary relative nav-active">Gallery</a>
+        <a href="./about.html" class="font-nav-link text-nav-link uppercase tracking-widest text-on-surface-variant hover:text-antique-rose transition-colors">About Us</a>
       </div>
       <div class="flex flex-col items-center justify-center">
         <a href="./index.html" class="flex flex-col items-center group">
@@ -137,7 +148,7 @@
       </div>
       <div class="flex items-center justify-end space-x-6">
         <a href="./about.html#enquiry-form" class="hidden md:block font-nav-link text-nav-link uppercase tracking-widest text-on-surface-variant hover:text-antique-rose transition-colors">Contact Us</a>
-        <a href="./about.html#enquiry-form" class="px-6 py-2.5 bg-antique-rose text-white rounded-full font-label-sm uppercase tracking-widest hover:bg-sweet-blossom transition-all duration-300 shadow-md shadow-antique-rose/20">Order Now</a>
+        <a href="./about.html#enquiry-form" class="hidden md:inline-block px-6 py-2.5 bg-antique-rose text-white rounded-full font-label-sm uppercase tracking-widest hover:bg-sweet-blossom transition-all duration-300 shadow-md shadow-antique-rose/20">Order Now</a>
         <button id="hamburger-btn" aria-label="Open navigation menu" class="md:hidden text-secondary p-2 ml-2">
           <span class="material-symbols-outlined text-3xl">menu</span>
         </button>

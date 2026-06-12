@@ -113,6 +113,17 @@
     #form-success.visible {
       display: block;
     }
+
+    /* Active-page underline indicator under nav links */
+    .nav-active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: #546438;
+    }
   </style>
 </head>
 
@@ -122,34 +133,30 @@
        TOP NAVIGATION BAR
        "About Us" is the active link.
        ============================================================ -->
-  <header class="sticky top-0 z-50 w-full bg-surface-container-low border-b border-secondary/10 transition-all duration-300">
-    <div class="max-w-container-max mx-auto px-gutter py-4 md:py-6">
-      <div class="flex items-center justify-between md:grid md:grid-cols-3">
+  <header class="bg-surface/95 backdrop-blur-md sticky top-0 z-50 w-full border-b border-sweet-blossom/10 transition-all duration-300">
+    <div class="max-w-container-max mx-auto px-8 py-4 flex items-center justify-between md:grid md:grid-cols-3">
         <!-- Left nav -->
         <nav class="hidden md:flex items-center space-x-10">
-          <a href="./index.html"   class="font-nav-link text-nav-link uppercase tracking-widest text-secondary hover:text-primary transition-colors">Home</a>
-          <a href="./gallery.html" class="font-nav-link text-nav-link uppercase tracking-widest text-secondary hover:text-primary transition-colors">Gallery</a>
-          <a href="./about.html"   class="font-nav-link text-nav-link uppercase tracking-widest text-primary relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[1px] after:bg-primary">About Us</a>
+          <a href="./index.html" class="font-nav-link text-nav-link uppercase tracking-widest text-on-surface-variant hover:text-antique-rose transition-colors">Home</a>
+          <a href="./gallery.html" class="font-nav-link text-nav-link uppercase tracking-widest text-on-surface-variant hover:text-antique-rose transition-colors">Gallery</a>
+          <a href="./about.html" class="font-nav-link text-nav-link uppercase tracking-widest text-secondary relative nav-active">About Us</a>
         </nav>
         <!-- Centre logo -->
         <div class="flex flex-col items-center justify-center">
           <a href="./index.html" class="flex flex-col items-center group">
             <span class="font-headline-md text-headline-md text-secondary tracking-tight mb-0.5">Hem Bakes</span>
-            <span class="font-label-sm text-[10px] tracking-[0.3em] text-secondary/60 uppercase">Canberra</span>
+            <span class="font-label-sm text-[10px] uppercase tracking-[0.25em] text-antique-rose mt-1">Canberra</span>
           </a>
         </div>
-        <!-- Right nav -->
-        <div class="hidden md:flex items-center justify-end space-x-8">
-          <a href="./about.html#enquiry-form" class="font-nav-link text-nav-link uppercase tracking-widest text-secondary hover:text-primary transition-colors">Contact Us</a>
-          <a href="./about.html#enquiry-form"
-             class="px-8 py-3 rounded-full bg-antique-rose text-on-primary font-nav-link text-[12px] uppercase tracking-widest hover:bg-primary transition-all shadow-md active:scale-95">
-            Order Now
-          </a>
+        <!-- Right nav + mobile hamburger -->
+        <div class="flex items-center justify-end space-x-6">
+          <a href="./about.html#enquiry-form" class="hidden md:block font-nav-link text-nav-link uppercase tracking-widest text-on-surface-variant hover:text-antique-rose transition-colors">Contact Us</a>
+          <a href="./about.html#enquiry-form" class="hidden md:inline-block px-6 py-2.5 bg-antique-rose text-white rounded-full font-label-sm uppercase tracking-widest hover:bg-sweet-blossom transition-all duration-300 shadow-md shadow-antique-rose/20">Order Now</a>
+          <!-- Mobile hamburger – JS toggles #mobile-menu below -->
+          <button id="hamburger-btn" aria-label="Open navigation menu" class="md:hidden text-secondary p-2 ml-2">
+            <span class="material-symbols-outlined text-3xl">menu</span>
+          </button>
         </div>
-        <!-- Mobile hamburger -->
-        <button id="hamburger-btn" aria-label="Open menu" class="md:hidden text-secondary p-2 justify-self-end">
-          <span class="material-symbols-outlined text-3xl">menu</span>
-        </button>
       </div>
     </div>
     <!-- Mobile menu -->
@@ -222,42 +229,42 @@
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-4">
           <!-- Step 1 -->
-          <div class="relative flex flex-col items-center md:items-start text-center md:text-left group">
+          <div class="relative flex flex-col items-center text-center group">
             <div class="process-line w-16 h-16 rounded-full bg-white border border-antique-rose/20 flex items-center justify-center mb-6 shadow-sm z-10 group-hover:border-primary transition-colors">
               <span class="material-symbols-outlined text-primary">edit_note</span>
             </div>
             <h3 class="font-nav-link text-label-sm uppercase tracking-widest text-secondary mb-2">01. Order</h3>
-            <p class="font-body-md text-sm text-warm-espresso/70 leading-relaxed max-w-[200px]">
+            <p class="font-body-md text-sm text-warm-espresso/70 leading-relaxed max-w-[200px] mx-auto">
               Place your order through our enquiry form or social media.
             </p>
           </div>
           <!-- Step 2 -->
-          <div class="relative flex flex-col items-center md:items-start text-center md:text-left group">
+          <div class="relative flex flex-col items-center text-center group">
             <div class="process-line w-16 h-16 rounded-full bg-white border border-antique-rose/20 flex items-center justify-center mb-6 shadow-sm z-10 group-hover:border-primary transition-colors">
               <span class="material-symbols-outlined text-primary">timer</span>
             </div>
             <h3 class="font-nav-link text-label-sm uppercase tracking-widest text-secondary mb-2">02. Preparation</h3>
-            <p class="font-body-md text-sm text-warm-espresso/70 leading-relaxed max-w-[200px]">
+            <p class="font-body-md text-sm text-warm-espresso/70 leading-relaxed max-w-[200px] mx-auto">
               Our doughs undergo a 48-hour slow fermentation process.
             </p>
           </div>
           <!-- Step 3 -->
-          <div class="relative flex flex-col items-center md:items-start text-center md:text-left group">
+          <div class="relative flex flex-col items-center text-center group">
             <div class="process-line w-16 h-16 rounded-full bg-white border border-antique-rose/20 flex items-center justify-center mb-6 shadow-sm z-10 group-hover:border-primary transition-colors">
               <span class="material-symbols-outlined text-primary">local_fire_department</span>
             </div>
             <h3 class="font-nav-link text-label-sm uppercase tracking-widest text-secondary mb-2">03. Freshly Baked</h3>
-            <p class="font-body-md text-sm text-warm-espresso/70 leading-relaxed max-w-[200px]">
+            <p class="font-body-md text-sm text-warm-espresso/70 leading-relaxed max-w-[200px] mx-auto">
               Items are baked in small batches on the morning of delivery.
             </p>
           </div>
           <!-- Step 4 (no connector line needed – last item) -->
-          <div class="flex flex-col items-center md:items-start text-center md:text-left group">
+          <div class="flex flex-col items-center text-center group">
             <div class="w-16 h-16 rounded-full bg-white border border-antique-rose/20 flex items-center justify-center mb-6 shadow-sm z-10 group-hover:border-primary transition-colors">
               <span class="material-symbols-outlined text-primary">celebration</span>
             </div>
             <h3 class="font-nav-link text-label-sm uppercase tracking-widest text-secondary mb-2">04. Enjoy</h3>
-            <p class="font-body-md text-sm text-warm-espresso/70 leading-relaxed max-w-[200px]">
+            <p class="font-body-md text-sm text-warm-espresso/70 leading-relaxed max-w-[200px] mx-auto">
               Collect from our studio or receive your boutique delivery.
             </p>
           </div>
@@ -337,7 +344,7 @@
                ══════════════════════════════════════════════════════ -->
           <form
             id="contact-form"
-            action="f39481a6-13f6-462a-9842-1cb7e5d65192"
+            action="https://api.web3forms.com/submit"
             method="POST"
             class="space-y-6"
           >
@@ -355,84 +362,49 @@
             <!-- Honey-pot spam trap (leave empty) -->
             <input type="text" name="botcheck" class="hidden" style="display:none">
 
-            <!-- Name & Email row -->
+            <!-- Name, Email, Servings -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label for="field-name" class="block font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-2">Your Name *</label>
-                <input
-                  id="field-name"
-                  type="text"
-                  name="name"
-                  required
-                  placeholder="e.g. Sarah Johnson"
-                  class="w-full bg-surface-container-low border border-transparent focus:border-primary/30 focus:ring-1 focus:ring-primary/30 rounded-xl p-4 font-body-md transition-colors outline-none"
-                >
+                <label for="field-name" class="block font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-2">Name *</label>
+                <input id="field-name" type="text" name="name" required placeholder="Your name" class="w-full bg-surface-container-low border-none rounded-xl focus:ring-1 focus:ring-primary/30 p-4 font-body-md outline-none">
               </div>
               <div>
-                <label for="field-email" class="block font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-2">Email Address *</label>
-                <input
-                  id="field-email"
-                  type="email"
-                  name="email"
-                  required
-                  placeholder="sarah@email.com"
-                  class="w-full bg-surface-container-low border border-transparent focus:border-primary/30 focus:ring-1 focus:ring-primary/30 rounded-xl p-4 font-body-md transition-colors outline-none"
-                >
+                <label for="field-email" class="block font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-2">Email *</label>
+                <input id="field-email" type="email" name="email" required placeholder="Email address" class="w-full bg-surface-container-low border-none rounded-xl focus:ring-1 focus:ring-primary/30 p-4 font-body-md outline-none">
+              </div>
+              <div class="md:col-span-2">
+                <label for="field-servings" class="block font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-2">Number of Servings</label>
+                <input id="field-servings" type="number" name="servings" placeholder="e.g. 25" class="w-full bg-surface-container-low border-none rounded-xl focus:ring-1 focus:ring-primary/30 p-4 font-body-md outline-none">
               </div>
             </div>
 
-            <!-- Phone -->
+            <!-- Cake Type -->
             <div>
-              <label for="field-phone" class="block font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-2">Phone Number</label>
-              <input
-                id="field-phone"
-                type="tel"
-                name="phone"
-                placeholder="0400 000 000"
-                class="w-full bg-surface-container-low border border-transparent focus:border-primary/30 focus:ring-1 focus:ring-primary/30 rounded-xl p-4 font-body-md transition-colors outline-none"
-              >
-            </div>
-
-            <!-- Event type -->
-            <div>
-              <label for="field-event" class="block font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-2">Event Type *</label>
-              <select
-                id="field-event"
-                name="event_type"
-                required
-                class="w-full bg-surface-container-low border border-transparent focus:border-primary/30 focus:ring-1 focus:ring-primary/30 rounded-xl p-4 font-body-md transition-colors outline-none"
-              >
-                <option value="">– Please select –</option>
-                <option value="Wedding">Wedding</option>
-                <option value="Birthday">Birthday Celebration</option>
-                <option value="Corporate">Corporate Event</option>
-                <option value="Private Celebration">Private Celebration</option>
-                <option value="Other">Other</option>
+              <label for="field-cake-type" class="block font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-2">Cake Type</label>
+              <select id="field-cake-type" name="cake_type" class="w-full bg-surface-container-low border-none rounded-xl focus:ring-1 focus:ring-primary/30 p-4 font-body-md outline-none">
+                <option>Custom Cakes</option>
+                <option>Cupcakes & Cake Pops</option>
+                <option>Cookies</option>
+                <option>Desserts</option>
               </select>
             </div>
 
-            <!-- Event date -->
+            <!-- Frosting -->
             <div>
-              <label for="field-date" class="block font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-2">Event Date</label>
-              <input
-                id="field-date"
-                type="date"
-                name="event_date"
-                class="w-full bg-surface-container-low border border-transparent focus:border-primary/30 focus:ring-1 focus:ring-primary/30 rounded-xl p-4 font-body-md transition-colors outline-none"
-              >
+              <label for="field-frosting" class="block font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-2">Frosting</label>
+              <select id="field-frosting" name="frosting" class="w-full bg-surface-container-low border-none rounded-xl focus:ring-1 focus:ring-primary/30 p-4 font-body-md outline-none">
+                <option>Vanilla Buttercream</option>
+                <option>Chocolate Ganache</option>
+                <option>Cream Cheese Frosting</option>
+                <option>Swiss Meringue</option>
+                <option>Other (Specify in Description)</option>
+              </select>
             </div>
 
             <!-- Vision description -->
             <div>
               <label for="field-vision" class="block font-label-sm text-[10px] uppercase tracking-widest text-secondary mb-2">Tell Us About Your Vision *</label>
-              <textarea
-                id="field-vision"
-                name="message"
-                required
-                rows="5"
-                placeholder="Describe your dream cake – flavour, design inspiration, colour palette, number of tiers, approximate guest count…"
-                class="w-full bg-surface-container-low border border-transparent focus:border-primary/30 focus:ring-1 focus:ring-primary/30 rounded-xl p-4 font-body-md transition-colors outline-none resize-none"
-              ></textarea>
+              <textarea id="field-vision" name="message" required rows="5" placeholder="Share some details..." class="w-full bg-surface-container-low border-none rounded-xl focus:ring-1 focus:ring-primary/30 p-4 font-body-md outline-none resize-none"></textarea>
             </div>
 
             <!-- Submit button -->

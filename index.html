@@ -117,17 +117,15 @@
       font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
     }
 
-    /* Active-page dot indicator under nav links */
+    /* Active-page underline indicator under nav links */
     .nav-active::after {
       content: '';
       position: absolute;
       bottom: -6px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 4px;
-      height: 4px;
-      border-radius: 9999px;
-      background: #D47285;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: #546438;
     }
 
     /* Smooth fade-in animation on page load */
@@ -170,7 +168,7 @@
       <!-- Right nav (desktop) + mobile hamburger -->
       <div class="flex items-center justify-end space-x-6">
         <a href="./about.html#enquiry-form" class="hidden md:block font-nav-link text-nav-link uppercase tracking-widest text-on-surface-variant hover:text-antique-rose transition-colors">Contact Us</a>
-        <a href="./about.html#enquiry-form" class="px-6 py-2.5 bg-antique-rose text-white rounded-full font-label-sm uppercase tracking-widest hover:bg-sweet-blossom transition-all duration-300 shadow-md shadow-antique-rose/20">Order Now</a>
+        <a href="./about.html#enquiry-form" class="hidden md:inline-block px-6 py-2.5 bg-antique-rose text-white rounded-full font-label-sm uppercase tracking-widest hover:bg-sweet-blossom transition-all duration-300 shadow-md shadow-antique-rose/20">Order Now</a>
         <!-- Mobile hamburger – JS toggles #mobile-menu below -->
         <button id="hamburger-btn" aria-label="Open navigation menu" class="md:hidden text-secondary p-2 ml-2">
           <span class="material-symbols-outlined text-3xl">menu</span>
@@ -227,7 +225,7 @@
         </div>
 
         <!-- Hero image -->
-        <div class="relative">
+        <div class="relative hidden md:block">
           <div class="aspect-[4/5] rounded-[3rem] overflow-hidden bg-surface-container-low border-[12px] border-white shadow-2xl shadow-antique-rose/10 transform rotate-2">
             <img
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuDy2h1Hgpr0HKYTLAdJkWLeaDmCn2R5IHFSStfTEKe_FOGgYleYK0pZlspbe690_l6sKcEB3Sg76hhXuyJtNfJV9bdtxsKu7lNfXMhWY8-zssF2v8zmTGAncBoqu_3Jf0rbapnspBzhX4C-kayvwjLabyFk_G9sZ6ypF5GRYRuLt8ZnysXE_joc5YOxn3IW82KGR4bAMqtXi27ZrtSXgC-kSzX9ASk8fOTSHXLjUtO8K33IW5dpxgT2b3rl9VGQXbk1j15njrH7xOI"
@@ -322,12 +320,10 @@
         </div>
       </div>
 
-      <!-- ── GALLERY STRIP ────────────────────────────────────────────────────
+      <!-- ── GALLERY GRID ────────────────────────────────────────────────────
            Images are rendered here by JavaScript reading from gallery-data.js.
-           To add or change photos, update your Google Drive folder and the
-           GitHub Action will sync them automatically overnight.
            ─────────────────────────────────────────────────────────────────── -->
-      <div id="gallery-strip" class="flex overflow-x-auto no-scrollbar gap-6 px-8 md:px-[calc((100vw-1280px)/2+32px)] scroll-smooth">
+      <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 px-gutter max-w-container-max mx-auto">
         <!-- JS populates this from GALLERY_IMAGES in gallery-data.js -->
       </div>
 
@@ -339,7 +335,29 @@
     </section>
 
     <!-- ============================================================
-         SECTION 4 – OUR MENU CATEGORIES
+         SECTION 4 – TESTIMONIAL CAROUSEL
+         Connected to Google Sheets via feedback-data.js
+         ============================================================ -->
+    <section class="py-section-padding-mobile md:py-section-padding-desktop bg-surface-container-low/30">
+      <div class="max-w-container-max mx-auto px-gutter text-center">
+        <div class="max-w-3xl mx-auto space-y-8" id="testimonial-container" style="min-height: 250px;">
+          <span class="material-symbols-outlined text-6xl text-sweet-blossom/40">format_quote</span>
+          <p class="font-headline-md text-secondary text-2xl md:text-3xl leading-relaxed transition-opacity duration-500" id="testimonial-text">
+            "The most beautiful cake I've ever seen, and it tasted even better..."
+          </p>
+          <div class="flex flex-col items-center space-y-2 transition-opacity duration-500" id="testimonial-author-block">
+            <div class="w-12 h-0.5 bg-antique-rose/30 mb-2"></div>
+            <p class="font-label-sm uppercase tracking-widest text-antique-rose" id="testimonial-author">Sarah & James</p>
+          </div>
+          <div class="flex justify-center gap-4 pt-4" id="testimonial-dots">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 5 – OUR MENU CATEGORIES
          Icon-based grid; links to About enquiry form for quotes.
          ============================================================ -->
     <section class="py-section-padding-mobile md:py-section-padding-desktop bg-surface-container-lowest">
@@ -352,20 +370,6 @@
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-12">
-          <!-- Birthday Cakes -->
-          <div class="flex flex-col items-center group cursor-pointer">
-            <div class="w-full aspect-square rounded-2xl bg-surface-container-high mb-4 overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-              <span class="material-symbols-outlined text-5xl text-antique-rose">cake</span>
-            </div>
-            <h3 class="font-headline-md text-xl text-secondary text-center">Birthday Cakes</h3>
-          </div>
-          <!-- Wedding Cakes -->
-          <div class="flex flex-col items-center group cursor-pointer">
-            <div class="w-full aspect-square rounded-2xl bg-surface-container-high mb-4 overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-              <span class="material-symbols-outlined text-5xl text-antique-rose">celebration</span>
-            </div>
-            <h3 class="font-headline-md text-xl text-secondary text-center">Wedding Cakes</h3>
-          </div>
           <!-- Custom Cakes -->
           <div class="flex flex-col items-center group cursor-pointer">
             <div class="w-full aspect-square rounded-2xl bg-surface-container-high mb-4 overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
@@ -373,12 +377,26 @@
             </div>
             <h3 class="font-headline-md text-xl text-secondary text-center">Custom Cakes</h3>
           </div>
-          <!-- Cupcakes -->
+          <!-- Cupcakes & Cake Pops -->
           <div class="flex flex-col items-center group cursor-pointer">
             <div class="w-full aspect-square rounded-2xl bg-surface-container-high mb-4 overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
               <span class="material-symbols-outlined text-5xl text-antique-rose">bakery_dining</span>
             </div>
-            <h3 class="font-headline-md text-xl text-secondary text-center">Cupcakes</h3>
+            <h3 class="font-headline-md text-xl text-secondary text-center">Cupcakes & Cake Pops</h3>
+          </div>
+          <!-- Cookies -->
+          <div class="flex flex-col items-center group cursor-pointer">
+            <div class="w-full aspect-square rounded-2xl bg-surface-container-high mb-4 overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+              <span class="material-symbols-outlined text-5xl text-antique-rose">cookie</span>
+            </div>
+            <h3 class="font-headline-md text-xl text-secondary text-center">Cookies</h3>
+          </div>
+          <!-- Desserts -->
+          <div class="flex flex-col items-center group cursor-pointer">
+            <div class="w-full aspect-square rounded-2xl bg-surface-container-high mb-4 overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+              <span class="material-symbols-outlined text-5xl text-antique-rose">icecream</span>
+            </div>
+            <h3 class="font-headline-md text-xl text-secondary text-center">Desserts</h3>
           </div>
         </div>
 
@@ -455,30 +473,115 @@
        main.js          → mobile nav, scroll arrows, smooth links
        ============================================================ -->
   <script src="./assets/gallery-data.js?v=2"></script>
+  <script src="./assets/feedback-data.js?v=1"></script>
   <script src="./assets/js/main.js"></script>
 
-  <!-- Renders the homepage rolling slideshow from GALLERY_IMAGES -->
+  <!-- Renders the homepage rolling slideshow and testimonial carousel -->
   <script>
     (function () {
-      const strip = document.getElementById('gallery-strip');
-      if (!strip || typeof GALLERY_IMAGES === 'undefined') return;
+      // 1. Gallery Grid (3 items at a time)
+      const grid = document.getElementById('gallery-grid');
+      const prevBtn = document.getElementById('gallery-prev');
+      const nextBtn = document.getElementById('gallery-next');
 
-      // Show first 8 images in the strip (all loop on the gallery page)
-      const slides = GALLERY_IMAGES.slice(0, 8);
+      if (grid && typeof GALLERY_IMAGES !== 'undefined' && GALLERY_IMAGES.length > 0) {
+        let galleryIndex = 0;
+        
+        function renderGallery() {
+          grid.innerHTML = '';
+          // Show 3 images at a time (or less if not enough)
+          for (let i = 0; i < 3; i++) {
+            const item = GALLERY_IMAGES[(galleryIndex + i) % GALLERY_IMAGES.length];
+            const card = document.createElement('div');
+            card.className = 'aspect-[4/5] rounded-3xl overflow-hidden bg-surface-variant';
+            const img = document.createElement('img');
+            img.src       = item.src;
+            img.alt       = item.alt || 'Hem Bakes creation';
+            img.className = 'w-full h-full object-cover hover:scale-105 transition-transform duration-700';
+            img.loading   = 'lazy';
+            card.appendChild(img);
+            grid.appendChild(card);
+          }
+        }
 
-      slides.forEach(function (item) {
-        const card = document.createElement('div');
-        card.className = 'flex-shrink-0 w-72 md:w-80 aspect-[4/5] rounded-3xl overflow-hidden bg-surface-variant';
+        renderGallery();
 
-        const img = document.createElement('img');
-        img.src       = item.src;
-        img.alt       = item.alt || 'Hem Bakes creation';
-        img.className = 'w-full h-full object-cover hover:scale-105 transition-transform duration-700';
-        img.loading   = 'lazy';
+        if (prevBtn) {
+          prevBtn.addEventListener('click', () => {
+            galleryIndex = (galleryIndex - 3 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length;
+            renderGallery();
+          });
+        }
+        
+        if (nextBtn) {
+          nextBtn.addEventListener('click', () => {
+            galleryIndex = (galleryIndex + 3) % GALLERY_IMAGES.length;
+            renderGallery();
+          });
+        }
+      }
 
-        card.appendChild(img);
-        strip.appendChild(card);
-      });
+      // 2. Testimonial Carousel (5s rotation)
+      if (typeof TESTIMONIALS !== 'undefined' && TESTIMONIALS.length > 0) {
+        let currentIndex = 0;
+        const textEl = document.getElementById('testimonial-text');
+        const authorEl = document.getElementById('testimonial-author');
+        const dotsContainer = document.getElementById('testimonial-dots');
+
+        // Create dots
+        TESTIMONIALS.forEach((_, i) => {
+          const dot = document.createElement('button');
+          dot.className = i === 0 ? 'w-2 h-2 rounded-full bg-antique-rose transition-colors' : 'w-2 h-2 rounded-full bg-antique-rose/20 transition-colors hover:bg-antique-rose/50';
+          dot.setAttribute('aria-label', `Go to testimonial ${i + 1}`);
+          dot.addEventListener('click', () => {
+            currentIndex = i;
+            updateTestimonial();
+            resetTimer();
+          });
+          dotsContainer.appendChild(dot);
+        });
+
+        const dots = dotsContainer.querySelectorAll('button');
+
+        function updateTestimonial() {
+          const t = TESTIMONIALS[currentIndex];
+          
+          // Fade out
+          textEl.style.opacity = '0';
+          authorEl.parentElement.style.opacity = '0';
+          
+          setTimeout(() => {
+            textEl.textContent = `"${t.feedback}"`;
+            authorEl.textContent = t.name;
+            
+            // Fade in
+            textEl.style.opacity = '1';
+            authorEl.parentElement.style.opacity = '1';
+            
+            // Update dots
+            dots.forEach((dot, i) => {
+              dot.className = i === currentIndex 
+                ? 'w-2 h-2 rounded-full bg-antique-rose transition-colors' 
+                : 'w-2 h-2 rounded-full bg-antique-rose/20 transition-colors hover:bg-antique-rose/50';
+            });
+          }, 500); // Wait for fade out to complete
+        }
+
+        function nextTestimonial() {
+          currentIndex = (currentIndex + 1) % TESTIMONIALS.length;
+          updateTestimonial();
+        }
+
+        let interval = setInterval(nextTestimonial, 5000);
+
+        function resetTimer() {
+          clearInterval(interval);
+          interval = setInterval(nextTestimonial, 5000);
+        }
+
+        // Initialize first testimonial
+        updateTestimonial();
+      }
     })();
   </script>
 
